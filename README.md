@@ -1,140 +1,140 @@
-# dWallet / DrumWave — site institucional (2026)
+# dWallet / DrumWave — institutional website (2026)
 
-Site de marketing estático, multi-página, sem build step. Marca dWallet
-("Your life creates data"), empresa DrumWave.
+Static, multi-page marketing site, no build step. dWallet brand
+("Your life creates data"), DrumWave company.
 
-> **Status: primeira versão, ainda em ajustes.** Este repositório está sendo
-> entregue à equipe de TI para colocar em produção, mas o conteúdo e o código
-> ainda vão passar por revisões antes da versão final. Ver [O que falta](#o-que-falta--próximos-passos)
-> abaixo.
+> **Status: first version, still being refined.** This repository is being
+> handed off to the IT team to deploy to production, but the content and
+> code will still go through revisions before the final version. See
+> [What's missing](#whats-missing--next-steps) below.
 
-## Para a equipe de TI
+## For the IT team
 
-Este é um site **100% estático** — HTML, CSS e JS puros, sem Node, sem
-build, sem dependências de servidor. Qualquer host de arquivos estáticos
-serve (GitHub Pages, Netlify, Vercel, Hostinger, S3, etc.).
+This is a **100% static** site — plain HTML, CSS and JS, no Node, no
+build, no server-side dependencies. Any static file host works
+(GitHub Pages, Netlify, Vercel, Hostinger, S3, etc.).
 
-- **Domínio final:** ainda não decidido. Por isso pedimos uma **URL de
-  teste/preview** (subdomínio temporário, GitHub Pages, ou o que for mais
-  simples de configurar) para compartilhamento interno enquanto os ajustes
-  continuam — antes de apontar o domínio definitivo.
-- **Build:** nenhum. É só servir os arquivos da raiz do repositório.
+- **Final domain:** not yet decided. That's why we're asking for a
+  **test/preview URL** (temporary subdomain, GitHub Pages, or whatever is
+  simplest to set up) for internal sharing while adjustments continue —
+  before pointing the final domain.
+- **Build:** none. Just serve the files from the root of the repository.
 - **Entry point:** [`index.html`](index.html).
-- **Rotas:** todas as páginas são arquivos `.html` separados (sem router,
-  sem SPA) — ver [Páginas](#páginas) abaixo.
-- **HTTPS / redirecionamento www → apex (ou vice-versa):** a definir junto
-  com a escolha do domínio final.
+- **Routes:** every page is a separate `.html` file (no router,
+  no SPA) — see [Pages](#pages) below.
+- **HTTPS / www → apex redirect (or vice versa):** to be defined together
+  with the final domain choice.
 
-Se surgir dúvida sobre qual arquivo corresponde a qual URL, ou sobre como
-apontar o domínio quando ele for definido, essas são as únicas
-configurações que faltam — o código em si não exige nada além de servir
-arquivos estáticos.
+If any question comes up about which file corresponds to which URL, or
+how to point the domain once it's defined, those are the only
+configurations still missing — the code itself doesn't require anything
+beyond serving static files.
 
-## O que é
+## What it is
 
-Site institucional da dWallet/DrumWave, com:
+Institutional website for dWallet/DrumWave, with:
 
-- **Home** ([`index.html`](index.html)) — experiência de marca guiada por
-  scroll, com atos animados e uma timeline de vida interativa (idade 18 →
-  70), mostrando como dados pessoais acumulam valor ao longo da vida.
-- **Business** ([`business.html`](business.html)) — página voltada a
-  empresas/parceiros, apresentando o produto do ponto de vista B2B.
-- **Contact** ([`contact.html`](contact.html)) — página de contato.
+- **Home** ([`index.html`](index.html)) — scroll-driven brand experience,
+  with animated acts and an interactive life timeline (age 18 → 70),
+  showing how personal data accumulates value over a lifetime.
+- **Business** ([`business.html`](business.html)) — page aimed at
+  companies/partners, presenting the product from a B2B perspective.
+- **Contact** ([`contact.html`](contact.html)) — contact page.
 - **Resources** ([`resources.html`](resources.html) +
-  [`resources/post.html`](resources/post.html)) — listagem e leitor de
-  posts (notícias, imprensa, conteúdo institucional), alimentados por
+  [`resources/post.html`](resources/post.html)) — listing and reader for
+  posts (news, press, institutional content), powered by
   [`assets/data/resources.json`](assets/data/resources.json).
 - **Privacy Policy** ([`privacy-policy.html`](privacy-policy.html)).
 
-Todas as páginas compartilham nav/footer no mesmo padrão e linkam entre si.
+All pages share the same nav/footer pattern and link to each other.
 
-## Estrutura do repositório
+## Repository structure
 
 ```
-index.html              Home — experiência de scroll + timeline
-business.html            Página Business (B2B)
-contact.html             Página de contato
-resources.html            Listagem de recursos/posts
-resources/post.html       Leitor de post individual (?slug=...)
-privacy-policy.html       Política de privacidade
+index.html              Home — scroll experience + timeline
+business.html            Business page (B2B)
+contact.html             Contact page
+resources.html            Resources/posts listing
+resources/post.html       Individual post reader (?slug=...)
+privacy-policy.html       Privacy policy
 
 assets/
-  img/                   Imagens do site (fotos, ícones, logo)
-  js/                    GSAP + ScrollTrigger, bundlados localmente
-  data/resources.json    Dados dos posts de Resources (gerado via CMS/)
+  img/                   Site images (photos, icons, logo)
+  js/                    GSAP + ScrollTrigger, bundled locally
+  data/resources.json    Resources post data (generated via CMS/)
 
 CMS/
-  build_resources_json.py   Converte export CSV do Webflow em resources.json
-  *.csv                      Export bruto do CMS antigo (Webflow)
+  build_resources_json.py   Converts Webflow CSV export into resources.json
+  *.csv                      Raw export from the old CMS (Webflow)
 
-Figma/                  Referência de design (NÃO faz parte do site publicado
-                         — está no .gitignore, existe só localmente)
+Figma/                  Design reference (NOT part of the published site
+                         — it's in .gitignore, exists locally only)
 
-site-antigo/             Trechos do site anterior (Webflow) mantidos como
-                         referência histórica (analytics, formulário
-                         HubSpot). Não é carregado pelas páginas atuais —
-                         ver site-antigo/README.md antes de reaproveitar
-                         qualquer trecho.
+site-antigo/             Snippets from the previous site (Webflow) kept as
+                         historical reference (analytics, HubSpot form).
+                         Not loaded by the current pages — see
+                         site-antigo/README.md before reusing any snippet.
 
-download-images.sh       Baixa as fotos da home a partir de assets/img/manifest.json
+download-images.sh       Downloads the home page photos from assets/img/manifest.json
 ```
 
-## Como abrir localmente
+## Running locally
 
-Basta abrir `index.html` no navegador — não precisa de servidor.
+Just open `index.html` in the browser — no server needed.
 
-- GSAP e ScrollTrigger já estão bundlados em `assets/js/`, então a animação
-  funciona offline.
-- Fontes (Titillium Web + Open Sans) vêm do Google Fonts e caem para a fonte
-  padrão do sistema se estiver offline.
-- As fotos da home já estão commitadas em `assets/img/`. Se algum arquivo
-  faltar, os `<img>` caem automaticamente para a URL hospedada do
-  `manifest.json` como fallback — rode `bash download-images.sh` para
-  baixar tudo de novo localmente.
+- GSAP and ScrollTrigger are already bundled in `assets/js/`, so the
+  animation works offline.
+- Fonts (Titillium Web + Open Sans) come from Google Fonts and fall back
+  to the system default font if offline.
+- The home page photos are already committed in `assets/img/`. If a file
+  is missing, the `<img>` tags automatically fall back to the hosted URL
+  in `manifest.json` — run `bash download-images.sh` to download
+  everything again locally.
 
-## Conteúdo de Resources (CMS)
+## Resources content (CMS)
 
-`assets/data/resources.json` é gerado a partir de um export CSV do Webflow
-antigo:
+`assets/data/resources.json` is generated from a CSV export of the old
+Webflow site:
 
 ```bash
 cd CMS
 python3 build_resources_json.py
 ```
 
-Isso lê o CSV mais recente na pasta e regrava
-`assets/data/resources.json`. Rodar de novo sempre que o export do CMS for
-atualizado. Hoje isso é um processo manual — não há integração automática
-com nenhum CMS.
+This reads the most recent CSV in the folder and rewrites
+`assets/data/resources.json`. Run it again whenever the CMS export is
+updated. Today this is a manual process — there's no automatic
+integration with any CMS.
 
-## O que já está pronto
+## What's already done
 
-- Home, Business, Contact, Resources (listagem + post) e Privacy Policy —
-  navegáveis e linkadas entre si.
-- Timeline interativa da home (drag, teclado, sincronizada com scroll).
-- Responsivo (mobile/desktop) e respeita `prefers-reduced-motion`.
-- Fotos e assets da home já commitados (não dependem de internet).
-- Conteúdo de Resources carregado a partir de dados reais migrados do CMS
-  antigo (Webflow).
+- Home, Business, Contact, Resources (listing + post) and Privacy Policy —
+  navigable and linked to each other.
+- Interactive home page timeline (drag, keyboard, synced with scroll).
+- Responsive (mobile/desktop) and respects `prefers-reduced-motion`.
+- Home page photos and assets already committed (don't depend on internet).
+- Resources content loaded from real data migrated from the old CMS
+  (Webflow).
 
-## O que falta / próximos passos
+## What's missing / next steps
 
-Esta é uma **primeira versão** para revisão interna, não a versão final.
-Ainda pendente:
+This is a **first version** for internal review, not the final version.
+Still pending:
 
-- **Domínio final** — a decidir.
-- **Analytics/tracking** — o site antigo tinha GA4, Google Ads, PostHog e
-  Cookie Script (ver `site-antigo/README.md`); nada disso foi reimplementado
-  ainda no site novo. Precisa de decisão consciente sobre quais manter.
-- **Formulário de contato/newsletter** — o site antigo integrava com
-  HubSpot; a página `contact.html` atual ainda precisa de uma revisão sobre
-  como (ou se) isso será reconectado.
-- **Revisão geral de conteúdo e copy** — textos, imagens e páginas ainda
-  vão passar por ajustes.
-- **SEO** — meta tags, sitemap, Search Console, JSON-LD de Organization
-  (existia no site antigo) ainda precisam ser revisados/reintroduzidos.
-- Design de referência em `Figma/` ainda está sendo usado como fonte de
-  verdade para ajustes visuais pendentes (pasta local apenas, fora do git).
+- **Final domain** — to be decided.
+- **Analytics/tracking** — the old site had GA4, Google Ads, PostHog and
+  Cookie Script (see `site-antigo/README.md`); none of that has been
+  reimplemented yet on the new site. Needs a conscious decision on which
+  ones to keep.
+- **Contact/newsletter form** — the old site integrated with HubSpot;
+  the current `contact.html` page still needs a review on how (or whether)
+  this will be reconnected.
+- **General content and copy review** — text, images and pages will still
+  go through adjustments.
+- **SEO** — meta tags, sitemap, Search Console, Organization JSON-LD
+  (existed on the old site) still need to be reviewed/reintroduced.
+- Reference design in `Figma/` is still being used as the source of
+  truth for pending visual adjustments (local folder only, outside git).
 
-Qualquer ajuste feito a partir daqui deve ser tratado como iteração sobre
-esta base — não como retrabalho do zero.
+Any changes made from here on should be treated as iteration on this
+base — not as a rework from scratch.
