@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DrumWave: Contact Us</title>
+<meta name="description" content="Get in touch with DrumWave — for personal dWallet, business dWallet, Data Agent, or account questions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#070707;
+  --bone:#F3F2EE;
+  --cobalt:#1F5BFF;
+  --green:#1FB25A;
+  --mute:#8A8A86;
+  --line:rgba(243,242,238,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);color:var(--bone)}
+body{
+  font-family:'Open Sans',system-ui,-apple-system,sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  line-height:1.3;
+}
+img{display:block;user-select:none;-webkit-user-drag:none;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+.mono{
+  font-family:'Open Sans',system-ui,sans-serif;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute);font-weight:400;
+}
+.display{font-family:'Titillium Web',system-ui,sans-serif;font-weight:300;letter-spacing:-.025em;line-height:.98}
+
+/* nav (shared with index.html / business.html) */
+.nav{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:50;
+  width:min(900px,92vw);height:64px;padding:0 10px 0 26px;
+  display:flex;align-items:center;gap:22px;
+  border:1px solid rgba(243,242,238,.12);border-radius:40px;
+  background:rgba(7,7,7,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-family:'Open Sans',sans-serif;font-size:14px;
+}
+.nav .logo{display:flex;align-items:center;gap:14px;padding-right:18px;border-right:1px solid rgba(243,242,238,.14)}
+.nav .logo img{width:30px;height:30px;display:block;object-fit:contain;flex:none}
+.nav .logo b{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.01em}
+.nav .links{display:flex;gap:26px;margin-left:auto}
+.nav .links a{font-weight:600}
+.nav .links a.dim{font-weight:400;opacity:.8}
+.nav .sep{width:1px;height:26px;background:rgba(243,242,238,.14)}
+.nav .pill{padding:11px 18px;border-radius:30px;border:1px solid rgba(243,242,238,.25);font-weight:400;transition:background .25s,border-color .25s}
+.nav .pill.p{background:linear-gradient(90deg, #109126 0%, #11c04a 100%);border-color:transparent;font-weight:600}
+.nav .pill:hover{background:rgba(243,242,238,.1)}
+.nav .pill.p:hover{background:linear-gradient(90deg, #12a62c 0%, #14d654 100%);border-color:transparent;filter:brightness(1.1)}
+@media (max-width:760px){.nav{height:54px;padding:0 6px 0 16px;gap:12px}.nav .links,.nav .sep,.nav .pill:not(.p){display:none}.nav .logo{border:0;padding-right:0}.nav .pill.p{margin-left:auto;padding:9px 14px;font-size:13px}}
+
+/* PAGE HERO */
+#chero{position:relative;padding:15.6vw 0 3vw;background:var(--ink);text-align:center;overflow:hidden}
+#chero::after{
+  position:absolute;left:50%;bottom:-8.6vw;transform:translateX(-50%);
+  width:122vw;height:65vw;background:radial-gradient(ellipse 65% 55% at 50% 100%, rgba(31,178,90,0.65) 0%, rgba(7,7,7,0) 75%);
+  pointer-events:none;z-index:0;
+}
+#chero .orb{position:absolute;top:0;right:0;width:86vw;max-width:1584px;z-index:0;pointer-events:none;opacity:1;mix-blend-mode:screen;transform:scaleX(-1)}
+#chero .eyebrow{position:relative;z-index:1}
+#chero h1{position:relative;z-index:1;font-size:3.33vw;font-weight:400;letter-spacing:-.1333vw;line-height:0.93;color:#FFF;margin-top:1.2vw}
+#chero .sub{position:relative;z-index:1;max-width:560px;margin:1.2vw auto 0;font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:600;color:rgba(255,255,255,.6)}
+
+/* CONTACT LAYOUT */
+#contact{position:relative;background:var(--ink);padding:2.6vw 5vw 8vw;overflow:hidden}
+#contact .wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr .62fr;gap:3vw;align-items:start}
+
+/* FORM CARD */
+.cform{
+  padding:2.2vw;border-radius:20px;background:rgba(255,255,255,0.05);
+  border:1px solid rgba(237,240,242,0.1);box-shadow:0px 4px 8px 0px rgba(0,0,0,0.02);
+}
+.cform .row{display:grid;grid-template-columns:1fr 1fr;gap:1.1vw;margin-bottom:1.1vw}
+.cform .field{display:flex;flex-direction:column;gap:.5vw;margin-bottom:1.1vw}
+.cform .field.full{grid-column:1 / -1}
+.cform label{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:.83vw;color:rgba(255,255,255,.85)}
+.cform input,.cform select,.cform textarea{
+  width:100%;padding:.95vw 1.1vw;border-radius:12px;border:1px solid rgba(237,240,242,.14);
+  background:#1B1B1B;color:#FFF;font-family:'Open Sans',sans-serif;font-size:.9vw;font-weight:400;
+}
+.cform select{appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960' fill='%238A8A86'%3E%3Cpath d='M480-360 280-560h400L480-360Z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1vw center;background-size:1.1vw;padding-right:2.6vw;
+}
+.cform select option{background:#1B1B1B;color:#FFF}
+.cform textarea{resize:vertical;min-height:8vw;font-family:'Open Sans',sans-serif}
+.cform input::placeholder,.cform textarea::placeholder{color:rgba(255,255,255,.35)}
+.cform input:focus,.cform select:focus,.cform textarea:focus{outline:none;border-color:var(--green)}
+.cform .consent{display:flex;flex-direction:column;gap:1vw;margin-top:.4vw}
+.cform .consent p{font-family:'Open Sans',sans-serif;font-size:.73vw;line-height:1.6;color:rgba(255,255,255,.5)}
+.cform .checkline{display:flex;align-items:flex-start;gap:.7vw}
+.cform .checkline input[type="checkbox"]{width:1.1vw;height:1.1vw;flex:none;margin-top:.15vw;accent-color:var(--green)}
+.cform .checkline label{font-family:'Open Sans',sans-serif;font-weight:400;font-size:.8vw;color:rgba(255,255,255,.75)}
+.cform .submit{
+  margin-top:.6vw;padding:.95vw 2.2vw;border-radius:56px;border:0;color:#FFF;cursor:pointer;
+  font-family:'Titillium Web',sans-serif;font-weight:600;font-size:.9375vw;width:fit-content;
+  background:linear-gradient(132deg,#4B27FF 1.9%,#0091FF 100.6%);transition:filter .25s;
+}
+.cform .submit:hover,.cform .submit:focus-visible{filter:brightness(1.12);outline:none}
+.cform .status{margin-top:1vw;font-family:'Open Sans',sans-serif;font-size:.83vw;color:var(--green);display:none}
+.cform .status.on{display:block}
+
+/* SIDE INFO */
+.cinfo{padding:2.2vw;border-radius:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(237,240,242,0.08)}
+.cinfo h2{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.15vw;color:#FFF;margin-bottom:1vw}
+.cinfo address{font-style:normal;font-family:'Open Sans',sans-serif;font-size:.9vw;line-height:1.7;color:rgba(255,255,255,.7)}
+.cinfo .email{display:block;margin-top:1.4vw;font-family:'Titillium Web',sans-serif;font-weight:600;font-size:.9vw;color:var(--green)}
+.cinfo .email:hover{text-decoration:underline}
+.cinfo hr{border:0;border-top:1px solid rgba(237,240,242,.1);margin:1.6vw 0}
+.cinfo .social-row{display:flex;gap:1vw}
+.cinfo .social-row a{font-family:'Open Sans',sans-serif;font-weight:400;font-size:.83vw;color:rgba(255,255,255,.6)}
+.cinfo .social-row a:hover{color:#FFF}
+
+/* WELCOME (shared pattern) */
+#welcome{position:relative;height:20.94vw;min-height:280px;background:var(--ink);text-align:center;padding:0}
+#welcome h2{position:absolute;left:0;top:4.16vw;width:100%;text-align:center;font-size:3.33vw;font-weight:400;letter-spacing:-.1333vw;line-height:0.93;color:#FFF}
+#welcome p{position:absolute;left:0;top:8.33vw;width:100%;text-align:center;font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:600;line-height:1.38;color:rgba(255,255,255,0.7)}
+#welcome .form{
+  position:absolute;left:36.3vw;top:13.02vw;width:27.4vw;height:3.75vw;
+  display:flex;align-items:center;gap:.42vw;padding:.4vw .4vw .4vw 1.25vw;
+  background:#2F2F2F;border-radius:100px;
+}
+#welcome .form input{
+  flex:1;min-width:0;padding:0;border:0;background:transparent;
+  color:#FFF;font-family:'Titillium Web',sans-serif;font-size:1.04vw;font-weight:400;
+}
+#welcome .form input::placeholder{color:#FFFFFF;opacity:1}
+#welcome .form input:focus{outline:none}
+#welcome .form .btn{
+  font-family:'Titillium Web',sans-serif;font-size:.9375vw;font-weight:600;white-space:nowrap;
+  height:100%;padding:0 2.16vw;border-radius:56px;border:0;color:#FFF;cursor:pointer;
+  background:linear-gradient(132deg,#4B27FF 1.9%,#0091FF 100.6%);
+  transition:filter .25s;
+}
+#welcome .form .btn:hover,#welcome .form .btn:focus-visible{filter:brightness(1.12);outline:none}
+
+/* FOOTER (shared pattern) */
+#pfoot{position:relative;height:20.83vw;min-height:280px;background:var(--ink);overflow:hidden}
+#pfoot .wave-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+#pfoot .id{position:absolute;left:8.87%;top:19.5%;display:flex;align-items:center;gap:.6vw;z-index:1}
+#pfoot .id .logo{width:2.19vw;height:auto;display:block}
+#pfoot .id b{font-family:'Roboto',sans-serif;font-weight:700;font-size:1.25vw;color:var(--bone)}
+#pfoot .tagline{position:absolute;left:8.85%;top:34%;font-family:'Roboto',sans-serif;font-size:1.04vw;font-weight:400;color:#B4B4B4;z-index:1}
+#pfoot .copyright{position:absolute;left:8.85%;top:50%;width:14.69%;font-family:'Roboto',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.35;color:#666;z-index:1}
+#pfoot .col{position:absolute;top:23%;z-index:1;display:flex;flex-direction:column}
+#pfoot .col.links{left:49.22%}
+#pfoot .col.socials{left:70%}
+#pfoot .col b{font-family:'Roboto',sans-serif;font-weight:700;font-size:.9375vw;color:#E3E3E3;margin-bottom:1.3vw}
+#pfoot .col a{font-family:'Roboto',sans-serif;font-weight:400;font-size:.9375vw;color:#B4B4B4;margin-bottom:.7vw;transition:color .25s}
+#pfoot .col a:hover{color:#FFF}
+
+@media (max-width:900px){
+  #chero{padding:20vh 5vw 6vh}
+  #chero h1{font-size:clamp(1.8rem,7vw,2.6rem)}
+  #chero .sub{font-size:15px}
+
+  #contact{padding:1.6em 5vw 8vh}
+  #contact .wrap{grid-template-columns:1fr;gap:2em}
+  .cform{padding:24px}
+  .cform .row{grid-template-columns:1fr;gap:0}
+  .cform label{font-size:14px}
+  .cform input,.cform select,.cform textarea{font-size:15px;padding:14px 16px}
+  .cform select{background-size:16px;padding-right:40px}
+  .cform .checkline label{font-size:14px}
+  .cform .consent p{font-size:12px}
+  .cform .submit{font-size:15px;padding:14px 28px;width:100%}
+  .cinfo{padding:24px}
+  .cinfo h2{font-size:18px}
+  .cinfo address{font-size:15px}
+  .cinfo .email{font-size:15px}
+  .cinfo .social-row a{font-size:14px}
+
+  #welcome{height:auto;padding:8vh 5vw}
+  #welcome h2,#welcome p,#welcome .form{position:static;width:auto;left:auto;top:auto;margin:0 auto 1.2em}
+  #welcome h2{font-size:clamp(1.8rem,7vw,2.6rem)}
+  #welcome p{font-size:15px}
+  #welcome .form{height:auto;flex-direction:column;max-width:320px}
+  #welcome .form input{padding:15px 20px;font-size:15px}
+  #welcome .form .btn{padding:15px 22px;font-size:14px}
+
+  #pfoot{height:auto;padding:8vh 5vw}
+  #pfoot .id,#pfoot .tagline,#pfoot .copyright,#pfoot .col{position:static;left:auto;top:auto}
+  #pfoot .id .logo{width:24px}
+  #pfoot .id b{font-size:18px}
+  #pfoot .tagline{font-size:15px;margin-top:1em}
+  #pfoot .copyright{font-size:14px;width:auto;margin-top:1em}
+  #pfoot .col{margin-top:2em}
+  #pfoot .col b{font-size:15px;margin-bottom:1em}
+  #pfoot .col a{font-size:15px;margin-bottom:.8em}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" aria-label="dWallet">
+  <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="" width="30" height="30"><b>dWallet.</b></a>
+  <nav class="links"><a class="dim" href="index.html#dsp">Personal</a><a class="dim" href="business.html">Business</a></nav>
+  <span class="sep"></span>
+  <a class="pill" href="https://personal.drumwave.com/sign-in">Log in</a>
+  <a class="pill p" href="https://personal.drumwave.com/">Open an Account</a>
+</header>
+
+<!-- HERO -->
+<section id="chero" aria-label="Contact Us">
+  <img class="orb" src="assets/img/business/bintro-glow.png" alt="">
+  <div class="eyebrow mono">GET IN TOUCH</div>
+  <h1 class="display">Contact Us</h1>
+  <p class="sub">Whether you&rsquo;re curious about a personal dWallet, a business account, or becoming a Data Agent &mdash; we&rsquo;d love to hear from you.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" aria-label="Contact form">
+  <div class="wrap">
+    <form class="cform" id="contact-form">
+      <div class="row">
+        <div class="field">
+          <label for="cf-first">First name</label>
+          <input type="text" id="cf-first" name="first_name" autocomplete="given-name" required>
+        </div>
+        <div class="field">
+          <label for="cf-last">Last name</label>
+          <input type="text" id="cf-last" name="last_name" autocomplete="family-name" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="cf-email">Email Address</label>
+        <input type="email" id="cf-email" name="email" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="cf-subject">Please select</label>
+        <select id="cf-subject" name="subject" required>
+          <option value="" disabled selected>Please select</option>
+          <option>I&rsquo;m interested in a personal dWallet&reg;</option>
+          <option>I&rsquo;m interested in a business dWallet&reg;</option>
+          <option>I&rsquo;m interested in becoming a Data Agent</option>
+          <option>I have an issue with my account</option>
+          <option>I have a different question</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cf-subjectline">Message Subject Line</label>
+        <input type="text" id="cf-subjectline" name="subject_line">
+      </div>
+
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" required></textarea>
+      </div>
+
+      <div class="field">
+        <label for="cf-source">How did you hear about us?</label>
+        <input type="text" id="cf-source" name="source">
+      </div>
+
+      <div class="consent">
+        <p>DrumWave is committed to protecting and respecting your privacy, and we&rsquo;ll only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. If you consent to us contacting you for this purpose, please tick below to say how you would like us to contact you:</p>
+        <div class="checkline">
+          <input type="checkbox" id="cf-consent" name="marketing_consent">
+          <label for="cf-consent">I agree to receive other communications from DrumWave.</label>
+        </div>
+        <p>By clicking Send below, you consent to allow DrumWave to store and process the personal information submitted above to provide you the content requested and acknowledge that you have reviewed and understand our <a href="privacy-policy.html" style="color:var(--green);text-decoration:underline">Privacy Policy</a>.</p>
+      </div>
+
+      <button class="submit" type="submit">Send</button>
+      <p class="status" id="cf-status">Thanks for reaching out &mdash; we&rsquo;ll be in touch soon.</p>
+    </form>
+
+    <aside class="cinfo">
+      <h2>U.S. Headquarters</h2>
+      <address>
+        DrumWave, Inc.<br>
+        2465 Latham Street, Suite 110<br>
+        Mountain View, California 94040<br>
+        USA
+      </address>
+      <a class="email" href="mailto:privacy@DrumWave.com">privacy@DrumWave.com</a>
+      <hr>
+      <div class="social-row">
+        <a href="https://www.youtube.com/@Drumwave" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/company/drumwave" target="_blank" rel="noopener">Linkedin</a>
+        <a href="https://x.com/DrumWaveInc" target="_blank" rel="noopener">X</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- WELCOME TO THE ONE ECONOMY -->
+<section id="welcome" aria-label="Welcome to the One Economy">
+  <h2 class="display">Welcome to the One Economy</h2>
+  <p>Where money and the value of data meet, giving everyone the opportunity to benefit.</p>
+  <form class="form" action="https://personal.drumwave.com/" method="get">
+    <input type="email" placeholder="Enter email" aria-label="Email">
+    <button class="btn" type="submit">Get started</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer id="pfoot">
+  <img class="wave-bg" src="assets/img/business/footer-waves.png" alt="">
+  <div class="id">
+    <img class="logo" src="assets/img/personal/drumwave-logo.png" alt="">
+    <b>DrumWave</b>
+  </div>
+  <p class="tagline">Your Life. Your Story. Your Data.</p>
+  <p class="copyright">Copyright &copy; 2026 DrumWave Inc. All rights reserved.</p>
+  <div class="col links">
+    <b>Links</b>
+    <a href="#">DrumWave.com</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="resources.html">Resources</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="col socials">
+    <b>Socials</b>
+    <a href="https://www.youtube.com/@Drumwave" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.linkedin.com/company/drumwave" target="_blank" rel="noopener">Linkedin</a>
+    <a href="https://x.com/DrumWaveInc" target="_blank" rel="noopener">X</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('cf-status');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    // No backend/CRM wired up yet — this is UI only.
+    status.classList.add('on');
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>

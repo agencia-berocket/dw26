@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DrumWave: Your life creates data</title>
+<meta name="description" content="Your life creates data. What if its value grew with you?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#070707;
+  --bone:#F3F2EE;
+  --cobalt:#1F5BFF;
+  --mute:#8A8A86;
+  --line:rgba(243,242,238,.14);
+  --scrim:rgba(7,7,7,.42);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#070707;color:var(--bone)}
+body{
+  font-family:'Open Sans',system-ui,-apple-system,sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  line-height:1.3;
+}
+img{display:block;user-select:none;-webkit-user-drag:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* type */
+.mono{
+  font-family:'Open Sans',system-ui,sans-serif;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--mute);
+  font-weight:400;
+}
+.display{
+  font-family:'Titillium Web',system-ui,sans-serif;
+  font-weight:300;
+  letter-spacing:-.025em;
+  line-height:.98;
+}
+.xl{font-size:clamp(3rem,9.6vw,11rem)}
+.lg{font-size:clamp(2.3rem,6.8vw,7.6rem)}
+.md{font-size:clamp(1.8rem,5.4vw,5.6rem)}
+.xs{font-size:clamp(1.4rem,2.6vw,2.2rem)}
+.num{
+  font-weight:200;
+  font-size:clamp(5rem,19vw,20rem);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.04em;
+  line-height:.9;
+}
+.ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.ln>span{display:block;will-change:transform}
+.cob{color:var(--cobalt)}
+
+/* chrome */
+.nav{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:50;
+  width:min(900px,92vw);height:64px;padding:0 10px 0 26px;
+  display:flex;align-items:center;gap:22px;
+  border:1px solid rgba(243,242,238,.12);border-radius:40px;
+  background:rgba(7,7,7,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-family:'Open Sans',sans-serif;font-size:14px;
+}
+.nav .logo{display:flex;align-items:center;gap:14px;padding-right:18px;border-right:1px solid rgba(243,242,238,.14)}
+.nav .logo img{width:30px;height:30px;display:block;object-fit:contain}
+.nav .logo b{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.01em}
+.nav .links{display:flex;gap:26px;margin-left:auto}
+.nav .links a{font-weight:600}
+.nav .links a.dim{font-weight:400;opacity:.8}
+.nav .sep{width:1px;height:26px;background:rgba(243,242,238,.14)}
+.nav .pill{padding:11px 18px;border-radius:30px;border:1px solid rgba(243,242,238,.25);font-weight:400;transition:background .25s,border-color .25s}
+.nav .pill.p{background:var(--cobalt);border-color:var(--cobalt);font-weight:600}
+.nav .pill:hover{background:rgba(243,242,238,.1)}
+.nav .pill.p:hover{background:#3D74FF;border-color:#3D74FF}
+.nav .logo img{flex:none}
+@media (max-width:760px){.nav{height:54px;padding:0 6px 0 16px;gap:12px}.nav .links,.nav .sep,.nav .pill:not(.p){display:none}.nav .logo{border:0;padding-right:0}.nav .pill.p{margin-left:auto;padding:9px 14px;font-size:13px}}
+.stamp{
+  position:fixed;right:24px;bottom:22px;z-index:50;
+  display:flex;align-items:center;gap:10px;
+  opacity:0;transition:opacity .4s;
+}
+.stamp.on{opacity:1}
+.stamp i{width:6px;height:6px;border-radius:50%;background:var(--cobalt);display:block}
+.stamp b{font-weight:500;color:var(--bone)}
+
+/* ledger of data events */
+.ledger{
+  position:fixed;left:24px;bottom:22px;z-index:50;
+  display:flex;flex-direction:column;gap:6px;
+  opacity:0;transition:opacity .4s;pointer-events:none;
+}
+.ledger.on{opacity:1}
+.ledger div{display:flex;align-items:center;gap:10px;opacity:0;transform:translateX(-8px)}
+.ledger i{width:6px;height:6px;border-radius:50%;background:var(--cobalt);display:block;flex:none}
+.ledger div span{color:var(--bone)}
+.ledger div em{font-style:normal}
+
+/* scenes */
+.act{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--ink)}
+.frame{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
+.frame img{width:100%;height:100%;object-fit:cover}
+.frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,7,.12) 0%,rgba(7,7,7,.28) 55%,rgba(7,7,7,.62) 100%)}
+.frame.on{opacity:1}
+.pad{position:absolute;left:5vw;right:5vw}
+
+/* ACT 1 */
+#act1 .hero-h{position:absolute;left:5vw;bottom:9vh;max-width:92vw}
+#act1 .cue{position:absolute;right:5vw;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:14px;writing-mode:vertical-rl}
+#act1 .cue i{display:block;width:1px;height:64px;background:var(--line)}
+#act1 .esd{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+#act1 .esd .w{position:absolute;color:var(--bone)}
+#act1 .esd .w:nth-child(1){left:5vw;top:12vh}
+#act1 .esd .w:nth-child(2){left:auto;right:5vw;top:42vh;text-align:right}
+#act1 .esd .w:nth-child(3){left:5vw;bottom:9vh}
+
+/* ACT 2 */
+#act2 .frame::after{background:linear-gradient(180deg,rgba(7,7,7,.05),rgba(7,7,7,.4))}
+#act2 .marker{position:absolute;display:flex;align-items:center;gap:10px;opacity:0;transform:translateX(-8px)}
+#act2 .marker i{width:8px;height:8px;border-radius:50%;background:var(--cobalt);display:block;transform:scale(0);box-shadow:0 0 0 0 rgba(31,59,255,.6)}
+#act2 .marker i.pulse{animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,59,255,.55)}100%{box-shadow:0 0 0 22px rgba(31,59,255,0)}}
+#act2 .marker .tag{color:var(--bone);background:rgba(7,7,7,.55);padding:7px 12px;border-radius:20px;border:1px solid rgba(243,242,238,.14);backdrop-filter:blur(6px)}
+#act2 .t1{position:absolute;left:5vw;bottom:9vh;max-width:92vw}
+#act2 .t2{position:absolute;left:5vw;top:10vh;max-width:92vw}
+#act2 .t2 .q{color:var(--mute);margin-bottom:.4em}
+#act2 .line-veil{position:absolute;inset:0;background:var(--ink);opacity:0}
+
+/* ACT 3 + 4 */
+#time .num-wrap{position:absolute;left:3vw;bottom:24vh;z-index:5;pointer-events:none}
+#time .num-wrap .lab{display:flex;align-items:center;gap:12px;margin-bottom:1.2em;margin-left:.3em}
+#time .num-wrap .lab i{width:6px;height:6px;background:var(--cobalt);display:block}
+#time .num-wrap .lab .b{position:absolute;left:18px;top:0;opacity:0;white-space:nowrap}
+#time .num-wrap .lab .a{white-space:nowrap}
+#time .num-wrap .lab{position:relative}
+#time .whatif{position:absolute;right:5vw;top:11vh;text-align:right;max-width:70vw;z-index:6}
+#time .frames{position:absolute;inset:0;opacity:0}
+#time .frames .frame::after{background:linear-gradient(90deg,rgba(7,7,7,.66) 0%,rgba(7,7,7,.2) 45%,rgba(7,7,7,.12) 100%),linear-gradient(0deg,rgba(7,7,7,.75) 0%,rgba(7,7,7,0) 45%)}
+#time .stage-tag{position:absolute;right:5vw;top:11vh;text-align:right;z-index:6;opacity:0}
+#time .stage-tag .age{font-size:clamp(2rem,7vw,7rem);color:var(--bone);font-variant-numeric:tabular-nums;font-weight:200}
+#time .stage-tag .cap{margin-top:.6em;color:var(--bone);opacity:.7;letter-spacing:.1em}
+#time .ctl{position:absolute;left:5vw;right:5vw;bottom:8vh;z-index:7;opacity:0;touch-action:none;user-select:none}
+#time .ctl .hint{display:flex;justify-content:space-between;margin-bottom:14px}
+#time .ctl .hint b{font-weight:500;color:var(--bone)}
+#time .track{position:relative;height:44px;cursor:grab}
+#time .track:active{cursor:grabbing}
+#time .track .rail{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line);transform:translateY(-50%)}
+#time .track .fill{position:absolute;left:0;top:50%;height:1px;background:var(--cobalt);transform:translateY(-50%);width:0}
+#time .ticks{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;pointer-events:none}
+#time .ticks i{display:block;width:2px;height:2px;background:var(--mute);opacity:.35;transform:translateY(-8px)}
+#time .ticks i.hit{background:var(--cobalt);opacity:1;height:6px;transform:translateY(-10px)}
+#time .handle{position:absolute;top:50%;left:0;width:18px;height:18px;border-radius:50%;background:var(--cobalt);transform:translate(-50%,-50%);box-shadow:0 0 0 6px rgba(31,59,255,.18)}
+#time .ages{position:relative;display:flex;justify-content:space-between;margin-top:10px}
+#time .ages span{position:absolute;transform:translateX(-50%);color:var(--mute);transition:color .3s}
+#time .ages span.cur{color:var(--bone)}
+#time .earlier{position:absolute;left:5vw;bottom:22vh;z-index:8;max-width:92vw;pointer-events:none}
+#time .earlier .cob{margin-top:.15em}
+#time .foot{position:absolute;left:5vw;top:22px;z-index:6;opacity:.7}
+
+/* ACT 5 */
+#split .frame::after{background:linear-gradient(180deg,rgba(7,7,7,.1),rgba(7,7,7,.5) 100%)}
+#split .big{position:absolute;left:5vw;bottom:9vh;z-index:5;max-width:92vw}
+
+/* ACT 6 */
+#payoff .t{position:absolute;left:5vw;bottom:9vh;max-width:92vw;z-index:5}
+#payoff .t2{position:absolute;right:5vw;top:11vh;text-align:right;max-width:92vw;z-index:5}
+#payoff .frame::after{background:linear-gradient(180deg,rgba(7,7,7,.06),rgba(7,7,7,.55) 100%)}
+
+/* FINAL */
+#final{height:auto;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:12vh 5vw 5vh}
+#final .id{display:flex;align-items:center;gap:12px}
+#final .id img{width:20px;height:20px;display:block;object-fit:contain}
+#final .id span{color:var(--bone);letter-spacing:.26em}
+#final h2{margin:10vh 0 5vh;max-width:14ch}
+#final p{max-width:46ch;font-size:clamp(1rem,1.35vw,1.2rem);color:var(--bone);opacity:.75;line-height:1.6;font-weight:300}
+#final .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:6vh}
+#final .btn{
+  font-family:'Open Sans',sans-serif;font-size:15px;font-weight:600;letter-spacing:0;
+  padding:16px 28px;border-radius:40px;border:1px solid rgba(243,242,238,.3);transition:background .25s,color .25s,border-color .25s;
+}
+#final .btn.p{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+#final .btn:hover,#final .btn:focus-visible{background:var(--cobalt);color:var(--bone);border-color:var(--cobalt);outline:none}
+#final .btn:focus-visible{box-shadow:0 0 0 3px rgba(31,59,255,.5)}
+#final .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:14vh;padding-top:22px;border-top:1px solid var(--line)}
+
+/* PERSONAL: DATA SAVINGS PLAN
+   Positions/sizes below are ported 1:1 from Figma node 2611:80518 (canvas ref width 1920px):
+   H2 x=347 y=2311 w=693 font=80/84 -3.2 | sub x=347 w=730 font=40/38 | body x=347 w=624 font=16/26
+   email frame x=347 w=477 h=72 | button x=619 w=180 h=48 | link x=347 y=2837
+   card group x=986 y=2319 w=792 h=792 */
+#dsp{
+  position:relative;height:57.29vw;min-height:640px;overflow:hidden;
+  background:var(--ink);
+}
+#dsp .glow{position:absolute;top:0;left:0;right:0;overflow:hidden;pointer-events:none;z-index:1}
+#dsp .glow img{width:100%;display:block;opacity:1;mix-blend-mode:screen}
+#dsp .wrap{position:absolute;inset:0;z-index:2}
+#dsp .dsp-ln{display:block;white-space:nowrap}
+#dsp h2{
+  position:absolute;left:18.07%;top:18.18%;width:38vw;
+  font-size:4.1667vw;font-weight:400;line-height:1.05;letter-spacing:-0.1667vw;color:#FFFFFF;
+}
+#dsp .sub{
+  position:absolute;left:18.07%;top:38.36%;width:38vw;
+  font-size:2.0833vw;font-weight:400;letter-spacing:-0.02em;line-height:1.05;color:#FFFFFF;
+}
+#dsp .sub .cob{color:#278EFF;font-weight:400}
+#dsp p{
+  position:absolute;left:18.07%;top:calc(57.2% - 2.08333vw - 2.0vw);width:38vw;
+  font-family:'Open Sans',sans-serif;font-size:0.83333vw;color:#B4B4B4;
+  line-height:1.55;font-weight:400;
+}
+#dsp .form{
+  position:absolute;left:18.07%;top:57.2%;width:24.84375vw;height:3.75vw;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.41667vw 0.41667vw 0.41667vw 1.25vw;
+  background:#2F2F2F;border:0;border-radius:100vw;
+}
+#dsp .form input{
+  flex:1;min-width:0;padding:0;border:0;background:transparent;
+  color:#FFFFFF;font-family:'Titillium Web',sans-serif;font-size:1.04167vw;font-weight:400;
+}
+#dsp .form input::placeholder{color:#FFFFFF;opacity:1}
+#dsp .form input:focus{outline:none}
+#dsp .form .btn{
+  width:11.14583vw;height:2.91667vw;flex:none;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 0.8854vw;border-radius:2.91667vw;border:0;
+  color:#FFFFFF;font-family:'Titillium Web',sans-serif;font-size:0.9375vw;font-weight:600;white-space:nowrap;
+  background:linear-gradient(115deg,#4B27FF 0%,#0091FF 100%);
+  cursor:pointer;
+  transition:filter .25s,transform .2s;
+}
+#dsp .form .btn:hover,#dsp .form .btn:focus-visible{
+  filter:brightness(1.12);transform:translateY(-1px);outline:none;
+}
+#dsp .link{
+  position:absolute;left:18.07%;top:calc(57.2% + 3.75vw + 2.08333vw);white-space:nowrap;
+  font-family:'Open Sans',sans-serif;font-size:0.83333vw;font-weight:600;color:#278EFF;
+  transition:color .2s;
+}
+#dsp .link:hover{text-decoration:underline;color:#54A4FF}
+#dsp .cards{position:absolute;left:51.34%;top:18.48%;width:46.63%}
+#dsp .cards img{width:100%;display:block}
+
+/* PERSONAL: HOW DOES A DATA SAVINGS PLAN WORK
+   Figma node 2611:80886, section h=990 on 1920 canvas ref */
+#how{position:relative;height:51.56vw;min-height:580px;background:var(--ink)}
+#how h2{
+  position:absolute;left:29.22%;top:12.22%;width:41.41%;text-align:center;
+  font-size:2.5vw;font-weight:400;letter-spacing:-.1vw;line-height:1;color:var(--bone);
+}
+#how .card{position:absolute;top:22.73%;width:17.71%}
+#how .card img{width:100%;border-radius:14px;display:block;object-fit:cover;aspect-ratio:320/442}
+#how .step-copy{margin-top:2.27vw}
+#how .eyebrow{color:#278EFF;margin-bottom:.8em}
+#how .eyebrow .dim{color:var(--mute);font-weight:400}
+#how h3{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.25vw;letter-spacing:-.0375vw;color:var(--bone);margin-bottom:.6em}
+#how p{font-family:'Open Sans',sans-serif;font-weight:400;font-size:.73vw;line-height:1.4;color:#999}
+
+/* PERSONAL: TRUST BLOCK
+   Figma node 2611:81146, section h=636 on 1920 canvas ref */
+#trust{
+  position:relative;height:33.125vw;min-height:380px;
+  background:#131313;display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+}
+#trust .wrap{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  z-index:2;width:100%;
+}
+#trust .badge{
+  width:6.25vw;height:auto;margin-bottom:2.8125vw;display:block;
+}
+#trust h2{
+  font-family:'Titillium Web',sans-serif;font-size:3.33333vw;font-weight:400;
+  line-height:1.05;letter-spacing:-0.13333vw;color:#FFFFFF;margin-bottom:1.25vw;
+}
+#trust p{
+  font-family:'Open Sans',sans-serif;font-size:0.72917vw;font-weight:400;
+  line-height:1.5;color:#8A8A86;margin-bottom:1.25vw;
+}
+#trust .tag{
+  font-family:'Open Sans',sans-serif;font-size:0.78125vw;font-weight:600;
+  letter-spacing:0.15em;text-transform:uppercase;color:#FFFFFF;
+}
+#trust .trust-ln{
+  display:block;white-space:nowrap;
+}
+
+/* PERSONAL: FAQ
+   Figma node 2611:81163, section h=797 on 1920 canvas ref */
+#faq{position:relative;height:41.51vw;min-height:460px;background:#070707;overflow:hidden}
+#faq .faq-label{position:absolute;left:18.75%;top:17.31%;font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.04vw;line-height:1.1;color:#FFF;z-index:1}
+#faq h2{position:absolute;left:18.75%;top:22.58%;width:20.05%;font-family:'Titillium Web',sans-serif;font-size:3.33333vw;font-weight:400;letter-spacing:-.13333vw;line-height:1.05;color:#FFFFFF}
+#faq .accordion{position:absolute;left:48.6458vw;top:17.31%;width:32.60417vw;display:flex;flex-direction:column;gap:0.625vw}
+#faq .item{
+  display:flex;align-items:center;justify-content:space-between;width:100%;
+  padding:1.4583vw;border-radius:0.83333vw;background:rgba(255,255,255,0.05);
+  border:1px solid rgba(237,240,242,0.10);text-align:left;cursor:pointer;
+  transition:background .25s,border-color .25s;box-sizing:border-box;
+}
+#faq .item:hover{background:rgba(255,255,255,0.08);border-color:rgba(237,240,242,0.20)}
+#faq .item span{flex:1 0 0;min-width:0;font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.04167vw;line-height:1.1;letter-spacing:-0.03125vw;color:#FFFFFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#faq .item i{font-style:normal;font-family:'Titillium Web',sans-serif;font-weight:400;font-size:1.25vw;line-height:1;color:rgba(255,255,255,0.6);flex:none;transition:transform .25s}
+#faq .item[aria-expanded="true"] i{transform:rotate(45deg)}
+
+/* PERSONAL: WELCOME TO THE ONE ECONOMY
+   Figma node 2611:81177, section h=402 on 1920 canvas ref */
+#welcome{position:relative;height:20.94vw;min-height:280px;background:var(--ink);text-align:center;padding:0 5vw}
+#welcome h2{position:absolute;left:2.58%;top:19.9%;width:94.79%;font-size:3.33vw;font-weight:400;line-height:.93;letter-spacing:-.1333vw;color:var(--bone)}
+#welcome p{position:absolute;left:2.58%;top:39.8%;width:94.79%;font-family:'Open Sans',sans-serif;font-size:.94vw;font-weight:600;line-height:1.38;color:var(--bone);opacity:.7}
+#welcome .form{
+  position:absolute;left:36.28%;top:62.19%;width:27.4%;height:17.91%;
+  display:flex;align-items:center;gap:.42vw;padding:.42vw;
+  background:#2F2F2F;border-radius:100px;
+}
+#welcome .form input{
+  flex:1;min-width:0;padding:0 .8vw;border:0;background:transparent;
+  color:var(--bone);font-family:'Titillium Web',sans-serif;font-size:1.04vw;font-weight:400;
+}
+#welcome .form input::placeholder{color:#FFFFFF;opacity:1}
+#welcome .form input:focus{outline:none}
+#welcome .form .btn{
+  font-family:'Titillium Web',sans-serif;font-size:.9375vw;font-weight:600;white-space:nowrap;
+  height:100%;padding:0 2.16vw;border-radius:100px;border:0;color:var(--bone);cursor:pointer;
+  background:linear-gradient(90deg,#4B27FF 0%,#0091FF 100%);
+  transition:filter .25s;
+}
+#welcome .form .btn:hover,#welcome .form .btn:focus-visible{filter:brightness(1.12);outline:none}
+
+/* PERSONAL: FOOTER
+   Figma node 2611:81185/81346, section h=400 on 1920 canvas ref */
+#pfoot{position:relative;height:20.833vw;min-height:280px;background:#070707;overflow:hidden}
+#pfoot .orb-bg{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:1;pointer-events:none}
+#pfoot .id{position:absolute;left:8.87%;top:19.5%;display:flex;align-items:center;gap:.6vw;z-index:1}
+#pfoot .id .logo{width:2.19vw;height:auto;display:block}
+#pfoot .id b{font-family:'Roboto',sans-serif;font-weight:700;font-size:1.25vw;color:var(--bone)}
+#pfoot .tagline{position:absolute;left:8.85%;top:34%;font-family:'Roboto',sans-serif;font-size:1.04vw;font-weight:400;color:#B4B4B4;z-index:1}
+#pfoot .copyright{position:absolute;left:8.85%;top:50%;width:14.69%;font-family:'Roboto',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.35;color:#666;z-index:1}
+#pfoot .col{position:absolute;top:23%;z-index:1;display:flex;flex-direction:column}
+#pfoot .col.links{left:49.22%}
+#pfoot .col.socials{left:70%}
+#pfoot .col b{font-family:'Roboto',sans-serif;font-weight:700;font-size:.9375vw;color:#E3E3E3;margin-bottom:1.3vw}
+#pfoot .col a{font-family:'Roboto',sans-serif;font-weight:400;font-size:.9375vw;color:#B4B4B4;margin-bottom:.7vw}
+#pfoot .col a:hover{color:var(--bone)}
+@media (max-width:900px){
+  #dsp{height:auto;max-height:none;min-height:0;padding:16vh 5vw 10vh}
+  #dsp .wrap{position:static;display:flex;flex-direction:column;gap:4vh}
+  #dsp h2,#dsp .sub,#dsp p,#dsp .form,#dsp .link,#dsp .cards{position:static;width:auto;left:auto;top:auto}
+  #dsp h2{font-size:clamp(2.3rem,9vw,4rem);letter-spacing:-.03em}
+  #dsp .sub{font-size:clamp(1.4rem,5vw,2rem)}
+  #dsp p{font-size:15px}
+  #dsp .form{height:auto}
+  #dsp .form input{padding:15px 20px;font-size:15px}
+  #dsp .form .btn{padding:15px 22px;font-size:14px}
+  #dsp .link{font-size:14px}
+  #dsp .cards{max-width:340px;align-self:center}
+}
+
+@media (max-width:760px){
+  .brand{top:16px;left:16px}
+  .stamp,.ledger{left:16px;right:16px;bottom:16px}
+  .stamp{left:auto}
+  #act1 .cue{display:none}
+  #act1 .esd .w:nth-child(2){top:38vh}
+  #time .num-wrap{bottom:30vh;left:4vw}
+  .num{font-size:clamp(4rem,18vw,9rem)}
+  #time .ctl{bottom:5vh}
+  #time .earlier{bottom:31vh}
+  #time .stage-tag{top:auto;bottom:27vh;right:4vw}
+  #time .whatif{top:9vh;max-width:90vw}
+  #final h2{margin:8vh 0 4vh}
+}
+@media (prefers-reduced-motion:reduce){
+  #act2 .marker i.pulse{animation:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" aria-label="dWallet">
+  <a class="logo" href="#"><img src="assets/img/logo.png" alt="" width="30" height="30"><b>dWallet.</b></a>
+  <nav class="links"><a href="#dsp">Personal</a><a class="dim" href="business.html">Business</a></nav>
+  <span class="sep"></span>
+  <a class="pill" href="https://personal.drumwave.com/sign-in">Log in</a>
+  <a class="pill p" href="https://personal.drumwave.com/">Open an Account &amp; get $25</a>
+</header>
+<div class="stamp mono" id="stamp" aria-hidden="true"><i></i><b id="stampTxt">07:41:03</b><span id="stampTag">run</span></div>
+<div class="ledger mono" id="ledger" aria-hidden="true">
+  <div><i></i><span>08:12</span><em>tap</em></div>
+  <div><i></i><span>08:14</span><em>coffee</em></div>
+  <div><i></i><span>08:31</span><em>transit</em></div>
+  <div><i></i><span>08:47</span><em>phone</em></div>
+  <div><i></i><span>18:05</span><em>charge</em></div>
+</div>
+
+<!-- ACT 1 : YOUR LIFE CREATES DATA -->
+<section class="act" id="act1" aria-label="Your life creates data">
+  <div class="frame on" data-i="0"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/01-run.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205429_0431c609-ffd0-434f-ab14-0f9ff06bc316.png" alt="A runner sprinting through a city street at dawn"></div>
+  <div class="frame" data-i="1"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/02-coffee.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205429_1e16b61c-bcfb-429d-ab33-51d56b693827.png" alt="A coffee handed across a counter" loading="lazy"></div>
+  <div class="frame" data-i="2"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/03-transit-gate.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205441_eef88465-6a65-47e2-9bc7-b68e7aeaaa69.png" alt="Tapping into a subway gate" loading="lazy"></div>
+  <div class="frame" data-i="3"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/04-train.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205441_f3a45851-bd0b-4123-a38a-2596ee67f116.png" alt="A train rushing past a platform" loading="lazy"></div>
+  <div class="frame" data-i="4"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/05-shopping.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205441_dc694edc-4bd3-473a-b360-dc3cfa25a5e8.png" alt="A shopping bag swinging mid stride" loading="lazy"></div>
+  <div class="frame" data-i="5"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/06-car.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205454_d7b4df1f-7495-4de3-924f-c00a23d3c3c6.png" alt="Laughing in the back seat of a car" loading="lazy"></div>
+  <div class="frame" data-i="6"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/07-music.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205454_4b1e9564-0412-4918-ab3d-49c61f0912df.png" alt="Listening to music in the wind" loading="lazy"></div>
+  <div class="frame" data-i="7"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/08-ev-charge.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205454_b86ab882-3bfb-4d4b-b862-5e7d14b8d743.png" alt="Plugging in an EV charger" loading="lazy"></div>
+  <div class="frame" data-i="8"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/09-phone-crossing.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205507_974615e2-a97d-4355-b928-0970590aeda8.png" alt="Checking a phone while crossing the street" loading="lazy"></div>
+
+  <!-- every single day frames -->
+  <div class="frame" data-i="9"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/05-shopping.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205441_dc694edc-4bd3-473a-b360-dc3cfa25a5e8.png" alt="" loading="lazy"></div>
+  <div class="frame" data-i="10"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/08-ev-charge.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205454_b86ab882-3bfb-4d4b-b862-5e7d14b8d743.png" alt="" loading="lazy"></div>
+  <div class="frame" data-i="11"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/01-run.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205429_0431c609-ffd0-434f-ab14-0f9ff06bc316.png" alt="" loading="lazy"></div>
+
+  <h1 class="hero-h display xl">
+    <span class="ln"><span>Your life</span></span>
+    <span class="ln"><span>creates data.</span></span>
+  </h1>
+  <div class="cue mono"><span>Scroll</span><i></i></div>
+  <div class="esd display xl" aria-hidden="true">
+    <div class="w"><span class="ln"><span>Every.</span></span></div>
+    <div class="w"><span class="ln"><span>Single.</span></span></div>
+    <div class="w"><span class="ln"><span>Day.</span></span></div>
+  </div>
+</section>
+
+<!-- ACT 2 : SOMETHING INVISIBLE -->
+<section class="act" id="act2" aria-label="Ordinary moments create something invisible">
+  <div class="frame" data-i="0"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/10-card-tap.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205507_f7f2c037-68dd-43ff-9b79-c138f49a8516.png" alt="A card tapping a payment terminal" loading="lazy"></div>
+  <div class="frame" data-i="1"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/02-coffee.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205429_1e16b61c-bcfb-429d-ab33-51d56b693827.png" alt="" loading="lazy"></div>
+  <div class="frame" data-i="2"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/03-transit-gate.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205441_eef88465-6a65-47e2-9bc7-b68e7aeaaa69.png" alt="" loading="lazy"></div>
+  <div class="frame" data-i="3"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/09-phone-crossing.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205507_974615e2-a97d-4355-b928-0970590aeda8.png" alt="" loading="lazy"></div>
+  <div class="frame" data-i="4"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/08-ev-charge.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205454_b86ab882-3bfb-4d4b-b862-5e7d14b8d743.png" alt="" loading="lazy"></div>
+  <div class="line-veil"></div>
+
+  <div class="marker mono" style="left:58%;top:52%"><i class="pulse"></i><span class="tag">08:12 &nbsp;tap</span></div>
+  <div class="marker mono" style="left:44%;top:46%"><i class="pulse"></i><span class="tag">08:14 &nbsp;coffee</span></div>
+  <div class="marker mono" style="left:52%;top:58%"><i class="pulse"></i><span class="tag">08:31 &nbsp;transit</span></div>
+  <div class="marker mono" style="left:38%;top:40%"><i class="pulse"></i><span class="tag">08:47 &nbsp;phone</span></div>
+  <div class="marker mono" style="left:62%;top:62%"><i class="pulse"></i><span class="tag">18:05 &nbsp;charge</span></div>
+
+  <h2 class="t1 display lg">
+    <span class="ln"><span>You're already</span></span>
+    <span class="ln"><span>creating it.</span></span>
+  </h2>
+  <div class="t2 display lg">
+    <div class="q md"><span class="ln"><span>The question is:</span></span></div>
+    <span class="ln"><span>What happens</span></span>
+    <span class="ln"><span>to its value?</span></span>
+  </div>
+</section>
+
+<!-- ACT 3 + 4 : THE REVEAL AND TIME -->
+<section class="act" id="time" aria-label="What if your data could grow with you">
+  <div class="frames">
+    <div class="frame" data-age="18"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/age-18-graduating.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205545_e7642bc9-2742-4ab3-8171-d625b09b5855.png" alt="At 18, graduating" loading="lazy"></div>
+    <div class="frame" data-age="25"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/age-25-first-apartment.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205429_1f983961-80d1-40b1-9889-e4a849bd934c.png" alt="At 25, carrying a box into a first apartment" loading="lazy"></div>
+    <div class="frame" data-age="32"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/age-32-travel.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205545_575032e4-2a5e-45f5-ad1f-65780fc72d21.png" alt="At 32, traveling" loading="lazy"></div>
+    <div class="frame" data-age="40"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/age-40-family.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205545_34d27361-ea9f-4843-9b01-c0602e052472.png" alt="At 40, spinning a child in a park" loading="lazy"></div>
+    <div class="frame" data-age="55"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/age-55-college.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205600_6db7607d-fcbb-4cf0-b7b8-8869ca06e5d4.png" alt="At 55, watching a child leave for college" loading="lazy"></div>
+    <div class="frame" data-age="70"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/age-70-retirement.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205559_9ad0b723-6b59-4b96-87ac-a1f3ab0badbd.png" alt="At 70, at the head of a family table" loading="lazy"></div>
+  </div>
+
+  <div class="foot mono">Illustrative values, not a forecast</div>
+
+  <div class="num-wrap">
+    <div class="lab mono"><i></i><span class="a">Value you've saved from your data</span><span class="b">Potential value accumulated</span></div>
+    <div class="display num" id="bignum">$0</div>
+  </div>
+
+  <div class="whatif display lg">
+    <span class="ln"><span>What if your data</span></span>
+    <span class="ln"><span>could grow</span></span>
+    <span class="ln"><span>with you?</span></span>
+  </div>
+
+  <div class="stage-tag">
+    <div class="display age" id="ageNum">18</div>
+    <div class="mono cap" id="ageCap">Graduating</div>
+  </div>
+
+  <div class="ctl" id="ctl">
+    <div class="hint mono"><span>One life, 18 to 70</span><b id="dragHint">Drag to move through time</b></div>
+    <div class="track" id="track" role="slider" aria-label="Age" aria-valuemin="18" aria-valuemax="70" aria-valuenow="18" tabindex="0">
+      <div class="rail"></div>
+      <div class="fill" id="fill"></div>
+      <div class="ticks" id="ticks"></div>
+      <div class="handle" id="handle"></div>
+    </div>
+    <div class="ages mono" id="ages"></div>
+  </div>
+
+  <div class="earlier display md">
+    <span class="ln"><span>The earlier you start,</span></span>
+    <span class="ln cob"><span>the more time your</span></span>
+    <span class="ln cob"><span>value has to grow.</span></span>
+  </div>
+</section>
+
+<!-- ACT 5 : SMALL MOMENTS, BIG MOMENTS -->
+<section class="act" id="split" aria-label="Small moments can add up to something big">
+  <div class="frame on" data-i="a"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/age-40-family.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205545_34d27361-ea9f-4843-9b01-c0602e052472.png" alt="A parent spinning a child in a park" loading="lazy"></div>
+  <h2 class="big display lg">
+    <span class="ln"><span>Small moments</span></span>
+    <span class="ln"><span>can add up to</span></span>
+    <span class="ln"><span>something big.</span></span>
+  </h2>
+</section>
+
+<!-- ACT 6 : EMOTIONAL PAYOFF -->
+<section class="act" id="payoff" aria-label="Your data has always had value">
+  <div class="frame on" data-i="a"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/age-55-college.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205600_6db7607d-fcbb-4cf0-b7b8-8869ca06e5d4.png" alt="A parent watching their child walk toward a college dormitory" loading="lazy"></div>
+  <div class="frame" data-i="b"><img onerror="if(this.dataset.cdn&&this.src!==this.dataset.cdn){this.src=this.dataset.cdn}" src="assets/img/12-ferry-couple.png" data-cdn="https://d8j0ntlcm91z4.cloudfront.net/user_3IVv6Qg13bUgSljRCsQrHvhoQa1/hf_20260827_205559_a4c549ef-15bb-42cc-9c62-934046180f7c.png" alt="An older couple laughing at the rail of a ferry" loading="lazy"></div>
+  <h2 class="t display xl">
+    <span class="ln"><span>Your data</span></span>
+    <span class="ln"><span>has always</span></span>
+    <span class="ln"><span>had value.</span></span>
+  </h2>
+  <div class="t2 display lg">
+    <span class="ln"><span>Now it can</span></span>
+    <span class="ln"><span>grow with you.</span></span>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="act" id="final" aria-label="DrumWave">
+  <div>
+    <div class="id mono"><img src="assets/img/logo.png" alt="" width="20" height="20"><span>dWallet by DrumWave</span></div>
+    <h2 class="display lg">
+      <span class="ln"><span>Save your data.</span></span>
+      <span class="ln"><span>Grow its value.</span></span>
+    </h2>
+    <p>Your everyday life creates data. DrumWave helps you capture its value and put it to work for your future.</p>
+    <div class="ctas">
+      <a class="btn p" href="#">Start saving your data</a>
+      <a class="btn" href="#">See how it works</a>
+    </div>
+  </div>
+  <div class="foot mono">
+    <span>Values shown are illustrative and not a projection of returns</span>
+    <span>Free. Secure. Bank grade encryption.</span>
+  </div>
+</section>
+
+<!-- PERSONAL : INTRODUCING THE DATA SAVINGS PLAN -->
+<section id="dsp" aria-label="Introducing the Data Savings Plan">
+  <div class="glow" aria-hidden="true"><img src="assets/img/personal/dsp-glow-orb.png" alt=""></div>
+  <div class="wrap">
+    <h2 class="display md">Introducing the Data Savings Plan</h2>
+    <div class="sub display xs">
+      <span class="dsp-ln">Open an account, request your</span>
+      <span class="dsp-ln">data, and <span class="cob">earn $25.</span></span>
+    </div>
+    <p>
+      <span class="dsp-ln">A Data Savings Plan lets you turn the data you generate every day into a</span>
+      <span class="dsp-ln">source of financial opportunity, today and for the future.</span>
+    </p>
+    <form class="form" action="https://personal.drumwave.com/" method="get">
+      <input type="email" placeholder="Enter email" aria-label="Email">
+      <button class="btn" type="submit">Get the $25 offer</button>
+    </form>
+    <a class="link" href="#">View offer &amp; sign up now &nbsp;&gt;</a>
+    <div class="cards" aria-hidden="true">
+      <img src="assets/img/personal/cards-composite.png" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL : HOW DOES A DATA SAVINGS PLAN WORK -->
+<section id="how" aria-label="How does a Data Savings Plan work?">
+  <h2 class="display">How does a Data Savings Plan work?</h2>
+  <div class="card" style="left:10.26%">
+    <img src="assets/img/personal/card1-own-your-data.png" alt="">
+    <div class="step-copy">
+      <div class="eyebrow mono">OWN YOUR DATA</div>
+      <h3>Sign up &amp; request your data</h3>
+      <p>With dWallet, you can request your data from companies you interact with. From streaming to shopping, the data you generate will finally belong to you.</p>
+    </div>
+  </div>
+  <div class="card" style="left:30.8%">
+    <img src="assets/img/personal/card2-save-your-data.png" alt="">
+    <div class="step-copy">
+      <div class="eyebrow mono">SAVE YOUR DATA</div>
+      <h3>Save &amp; manage it</h3>
+      <p>Contribute your data to a Data Savings Plan and grow its value, much like money builds in a traditional bank account. You decide what data to add and what you&rsquo;re open to licensing.</p>
+    </div>
+  </div>
+  <div class="card" style="left:51.34%">
+    <img src="assets/img/personal/card3-receive-offers.png" alt="">
+    <div class="step-copy">
+      <div class="eyebrow mono">RECEIVE OFFERS</div>
+      <h3>Earn from its value</h3>
+      <p>You&rsquo;re always in control. When companies want to license your data, you decide which offers to accept. Say yes, and you&rsquo;ll get paid directly in your dWallet. Save it or cash out anytime.</p>
+    </div>
+  </div>
+  <div class="card" style="left:71.88%">
+    <img src="assets/img/personal/card4-pay-with-data.png" alt="">
+    <div class="step-copy">
+      <div class="eyebrow mono">PAY WITH DATA <span class="dim">(COMING SOON)</span></div>
+      <h3>Transact using its value</h3>
+      <p>Soon you&rsquo;ll be able to make purchases using the balance from your Data Savings Plan. Using a QR code, dPay enables you to pay with the value of your data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL : TRUST BLOCK -->
+<section id="trust" aria-label="DrumWave doesn't share, sell or store your data">
+  <div class="wrap">
+    <img class="badge" src="assets/img/personal/shield-badge.png" alt="">
+    <h2 class="display">
+      <span class="trust-ln">DrumWave doesn&rsquo;t share, sell or</span>
+      <span class="trust-ln">store your data.</span>
+    </h2>
+    <p>
+      <span class="trust-ln">We are reconnecting companies and individuals through the value of their data. DrumWave helps you secure</span>
+      <span class="trust-ln">and manage the value of their data.</span>
+    </p>
+    <div class="tag">WE ARE NOT DATA BROKERS</div>
+  </div>
+</section>
+
+<!-- PERSONAL : FAQ -->
+<section id="faq" aria-label="Questions? We've got answers.">
+  <div class="faq-label">FAQS</div>
+  <h2 class="display">Questions? We&rsquo;ve got answers.</h2>
+  <div class="accordion">
+    <button class="item" aria-expanded="false">
+      <span>Is a Data Savings Account a bank account?</span><i>+</i>
+    </button>
+    <button class="item" aria-expanded="false">
+      <span>What is a Data Savings Plan?</span><i>+</i>
+    </button>
+    <button class="item" aria-expanded="false">
+      <span>How much is my data worth?</span><i>+</i>
+    </button>
+    <button class="item" aria-expanded="false">
+      <span>Why would a company pay for something it currently gets free?</span><i>+</i>
+    </button>
+    <button class="item" aria-expanded="false">
+      <span>Is my data safe with dWallet?</span><i>+</i>
+    </button>
+  </div>
+</section>
+
+<!-- PERSONAL : WELCOME TO THE ONE ECONOMY -->
+<section id="welcome" aria-label="Welcome to the One Economy">
+  <h2 class="display">Welcome to the One Economy</h2>
+  <p>Where money and the value of data meet, giving everyone the opportunity to benefit.</p>
+  <form class="form" action="https://personal.drumwave.com/" method="get">
+    <input type="email" placeholder="Enter email" aria-label="Email">
+    <button class="btn" type="submit">Get started</button>
+  </form>
+</section>
+
+<!-- PERSONAL : FOOTER -->
+<footer id="pfoot">
+  <img class="orb-bg" src="assets/img/personal/footer-gradient-home7.png" alt="">
+  <div class="id">
+    <img class="logo" src="assets/img/personal/drumwave-logo.png" alt="">
+    <b>DrumWave</b>
+  </div>
+  <p class="tagline">Your Life. Your Story. Your Data.</p>
+  <p class="copyright">Copyright &copy; 2026 DrumWave Inc. All rights reserved.</p>
+  <div class="col links">
+    <b>Links</b>
+    <a href="#">DrumWave.com</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="resources.html">Resources</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="col socials">
+    <b>Socials</b>
+    <a href="https://www.youtube.com/@Drumwave" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.linkedin.com/company/drumwave" target="_blank" rel="noopener">Linkedin</a>
+    <a href="https://x.com/DrumWaveInc" target="_blank" rel="noopener">X</a>
+  </div>
+</footer>
+
+<script src="assets/js/gsap.min.js"></script>
+<script src="assets/js/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  gsap.registerPlugin(ScrollTrigger);
+  const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scrub = RM ? true : 0.9;
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+  const lines = (sel, r) => $$(sel + ' .ln > span', r);
+
+  // Prepare all line reveals hidden
+  gsap.set($$('.ln > span'), { yPercent: 112 });
+  gsap.set('#act1 .hero-h .ln > span', { yPercent: 0 });
+  gsap.set('#final .ln > span', { yPercent: 0 });
+
+  /* ---------- ACT 1 ---------- */
+  const stamps = [
+    ['07:41:03','run'],['08:14:22','coffee'],['08:31:07','transit'],['08:32:40','transit'],
+    ['12:05:51','shop'],['17:48:19','drive'],['19:20:02','music'],['21:03:45','charge'],['22:11:30','phone']
+  ];
+  let lastStamp = -1;
+  const stampEl = $('#stamp'), stampTxt = $('#stampTxt'), stampTag = $('#stampTag');
+  function setStamp(i){
+    if(i === lastStamp) return;
+    lastStamp = i;
+    stampTxt.textContent = stamps[i][0];
+    stampTag.textContent = stamps[i][1];
+    if(!RM) gsap.fromTo(stampEl.querySelector('i'), {scale:2.4, opacity:1}, {scale:1, opacity:1, duration:.5, ease:'power2.out', overwrite:true});
+  }
+
+  const tl1 = gsap.timeline({
+    defaults:{ease:'none'},
+    scrollTrigger:{
+      trigger:'#act1', start:'top top', end:'+=400%', pin:true, scrub,
+      onUpdate(self){
+        const T = self.progress * 9.2;
+        const i = clamp(Math.floor((T - 1.2) / 0.42) + 1, 0, 8);
+        setStamp(T < 1.2 ? 0 : i);
+        stampEl.classList.toggle('on', self.isActive && T < 5.2);
+      },
+      onLeave(){ stampEl.classList.remove('on'); },
+      onLeaveBack(){ stampEl.classList.remove('on'); }
+    }
+  });
+  const f1 = i => `#act1 .frame[data-i="${i}"]`;
+  tl1.fromTo(f1(0)+' img', {scale:1.1}, {scale:1, duration:1.4}, 0);
+  for(let i=1;i<=8;i++){
+    const at = 1.2 + (i-1)*0.42;
+    tl1.set(f1(i), {opacity:1}, at);
+    if(i>1) tl1.set(f1(i-1), {opacity:0}, at);
+  }
+  tl1.to('#act1 .hero-h .ln > span', {yPercent:-112, duration:.5, stagger:.06}, 4.7);
+  tl1.to('#act1 .cue', {opacity:0, duration:.3}, 1.0);
+  // Every. Single. Day.
+  const esdW = $$('#act1 .esd .w');
+  [[9,5.5],[10,6.6],[11,7.7]].forEach(([fi, at], k) => {
+    tl1.set(f1(fi), {opacity:1}, at);
+    if(k>0) tl1.set(f1(fi-1), {opacity:0}, at);
+    if(k===0) tl1.set(f1(8), {opacity:0}, at);
+    tl1.fromTo(esdW[k].querySelector('.ln > span'), {yPercent:112}, {yPercent:0, duration:.5, ease:'power3.out'}, at);
+  });
+  tl1.to({}, {duration:.4}, 8.8);
+
+  /* ---------- ACT 2 ---------- */
+  const led = $$('#ledger div');
+  const markers = $$('#act2 .marker');
+  const tl2 = gsap.timeline({
+    defaults:{ease:'none'},
+    scrollTrigger:{ trigger:'#act2', start:'top top', end:'+=480%', pin:true, scrub,
+      toggleClass:{targets:'#ledger', className:'on'} }
+  });
+  for(let i=0;i<5;i++){
+    const at = i*1.25;
+    tl2.fromTo(`#act2 .frame[data-i="${i}"]`, {opacity:0}, {opacity:1, duration:.55}, at);
+    tl2.fromTo(`#act2 .frame[data-i="${i}"] img`, {scale:1.08}, {scale:1, duration:1.3}, at);
+    tl2.fromTo(markers[i].querySelector('i'), {scale:0}, {scale:1, duration:.22, ease:'back.out(2)'}, at+.6);
+    tl2.to(markers[i], {opacity:1, x:0, duration:.3}, at+.6);
+    tl2.to(led[i], {opacity:1, x:0, duration:.3}, at+.7);
+  }
+  tl2.to('#act2 .line-veil', {opacity:.82, duration:.7}, 6.4);
+  tl2.to(markers, {opacity:.55, duration:.4}, 6.4);
+  tl2.to(lines('#act2 .t1'), {yPercent:0, duration:.55, stagger:.1, ease:'power3.out'}, 6.7);
+  tl2.to(lines('#act2 .t1'), {yPercent:-112, duration:.4, stagger:.06}, 8.2);
+  tl2.to(markers, {opacity:0, duration:.4}, 8.2);
+  tl2.to('#act2 .line-veil', {opacity:.94, duration:.5}, 8.2);
+  tl2.to(lines('#act2 .t2 .q'), {yPercent:0, duration:.5, ease:'power3.out'}, 8.7);
+  tl2.to(lines('#act2 .t2').slice(1), {yPercent:0, duration:.55, stagger:.12, ease:'power3.out'}, 9.3);
+  tl2.to({}, {duration:.7}, 10.1);
+
+  /* ---------- ACT 3 + 4 : TIME ---------- */
+  const AGES = [18,25,32,40,55,70];
+  const VALS = [0,820,3460,8900,18420,31800];
+  const CAPS = ['Graduating','First apartment','Building a life','Family','Child heads to college','Retirement, together'];
+  const frames4 = $$('#time .frames .frame');
+  const bignum = $('#bignum'), ageNum = $('#ageNum'), ageCap = $('#ageCap');
+  const fill = $('#fill'), handle = $('#handle'), track = $('#track');
+  const ticksEl = $('#ticks'), agesEl = $('#ages');
+  for(let y=18;y<=70;y++){ const i=document.createElement('i'); ticksEl.appendChild(i); }
+  const ticks = $$('#ticks i');
+  AGES.forEach(a => { const s=document.createElement('span'); s.textContent=a; s.style.left=((a-18)/52*100)+'%'; agesEl.appendChild(s); });
+  const ageLabels = $$('#ages span');
+
+  function valueAt(age){
+    for(let i=0;i<AGES.length-1;i++){
+      if(age <= AGES[i+1]){
+        const u = (age-AGES[i])/(AGES[i+1]-AGES[i]);
+        return VALS[i] + (VALS[i+1]-VALS[i]) * u;
+      }
+    }
+    return VALS[VALS.length-1];
+  }
+  const smooth = u => u*u*(3-2*u);
+  let lastT = -1;
+  function render(t){
+    t = clamp(t,0,1);
+    if(Math.abs(t-lastT) < 0.0005) return;
+    lastT = t;
+    const age = 18 + t*52;
+    const ageR = Math.round(age);
+    bignum.textContent = '$' + Math.round(valueAt(age)).toLocaleString('en-US');
+    ageNum.textContent = ageR;
+    // stage + crossfade
+    let si = 0;
+    for(let i=0;i<AGES.length-1;i++){ if(age >= AGES[i]) si = i; }
+    const segLen = AGES[si+1]-AGES[si];
+    const u = clamp((age-AGES[si])/segLen, 0, 1);
+    const x = smooth(clamp((u-0.62)/0.38, 0, 1));
+    frames4.forEach((f,i)=>{
+      let o = 0;
+      if(i===si) o = 1;
+      else if(i===si+1) o = x;
+      f.style.opacity = o;
+      const img = f.firstElementChild;
+      const local = i===si ? u : (i===si+1 ? 0 : 1);
+      img.style.transform = `scale(${1.06 - 0.06*local}) translateX(${(-1.5 + 3*local)}%)`;
+    });
+    ageCap.textContent = CAPS[x > .5 ? si+1 : si];
+    // control
+    fill.style.width = (t*100)+'%';
+    handle.style.left = (t*100)+'%';
+    track.setAttribute('aria-valuenow', ageR);
+    const n = ageR - 18;
+    ticks.forEach((tk,i)=> tk.classList.toggle('hit', i <= n && t > 0));
+    ageLabels.forEach((l,i)=> l.classList.toggle('cur', ageR >= AGES[i]));
+  }
+
+  const PH_START = 2.9, PH_LEN = 6.5, TL_LEN = 10;
+  let dragging = false;
+  let tl4;
+  tl4 = gsap.timeline({
+    defaults:{ease:'none'},
+    scrollTrigger:{ trigger:'#time', start:'top top', end:'+=900%', pin:true, scrub },
+    onUpdate(){
+      if(!tl4) return;
+      const T = tl4.time();
+      if(!dragging) render((T - PH_START) / PH_LEN);
+    }
+  });
+  tl4.fromTo('#time .num-wrap', {opacity:0, y:30}, {opacity:1, y:0, duration:.8, ease:'power2.out'}, 0.1);
+  tl4.to(lines('#time .whatif'), {yPercent:0, duration:.55, stagger:.12, ease:'power3.out'}, 1.3);
+  tl4.to(lines('#time .whatif'), {yPercent:-112, duration:.4, stagger:.06}, 2.5);
+  tl4.to('#time .lab .a', {opacity:0, duration:.3}, 2.5);
+  tl4.to('#time .lab .b', {opacity:1, duration:.3}, 2.6);
+  tl4.to('#time .frames', {opacity:1, duration:.6}, 2.7);
+  tl4.to('#time .ctl', {opacity:1, duration:.5}, 2.9);
+  tl4.to('#time .stage-tag', {opacity:1, duration:.5}, 2.9);
+  tl4.to(lines('#time .earlier'), {yPercent:0, duration:.5, stagger:.1, ease:'power3.out'}, 9.45);
+  tl4.to('#time .num-wrap', {opacity:.25, duration:.4}, 9.45);
+  tl4.to({}, {duration:.05}, TL_LEN-0.05);
+  render(0);
+
+  // Drag: the handle scrolls the page, so scroll and drag share one source of truth
+  const st4 = tl4.scrollTrigger;
+  function tFromEvent(e){
+    const r = track.getBoundingClientRect();
+    return clamp((e.clientX - r.left)/r.width, 0, 1);
+  }
+  function scrollToT(t){
+    const p = (PH_START + t*PH_LEN)/TL_LEN;
+    const y = st4.start + p*(st4.end - st4.start);
+    window.scrollTo(0, y);
+  }
+  let hinted = false;
+  track.addEventListener('pointerdown', e => {
+    dragging = true; track.setPointerCapture(e.pointerId);
+    const t = tFromEvent(e); render(t); scrollToT(t);
+    if(!hinted){ hinted = true; gsap.to('#dragHint', {opacity:.5, duration:.6}); }
+  });
+  track.addEventListener('pointermove', e => {
+    if(!dragging) return;
+    const t = tFromEvent(e); render(t); scrollToT(t);
+  });
+  const endDrag = () => { dragging = false; };
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+  track.addEventListener('keydown', e => {
+    const step = e.shiftKey ? 5 : 1;
+    let cur = lastT, nt = cur;
+    if(e.key === 'ArrowRight' || e.key === 'ArrowUp') nt = cur + step/52;
+    else if(e.key === 'ArrowLeft' || e.key === 'ArrowDown') nt = cur - step/52;
+    else return;
+    e.preventDefault();
+    nt = clamp(nt,0,1); render(nt); scrollToT(nt);
+  });
+
+  /* ---------- ACT 5 : SMALL MOMENTS ---------- */
+  const tl5 = gsap.timeline({
+    defaults:{ease:'none'},
+    scrollTrigger:{ trigger:'#split', start:'top top', end:'+=220%', pin:true, scrub }
+  });
+  tl5.fromTo('#split .frame[data-i="a"] img', {scale:1.1}, {scale:1, duration:3.6}, 0);
+  tl5.to(lines('#split .big'), {yPercent:0, duration:.55, stagger:.1, ease:'power3.out'}, 0.9);
+  tl5.to(lines('#split .big'), {yPercent:-112, duration:.4, stagger:.06}, 3.0);
+  tl5.to({}, {duration:.4}, 3.4);
+
+  /* ---------- ACT 6 : PAYOFF ---------- */
+  const tl6 = gsap.timeline({
+    defaults:{ease:'none'},
+    scrollTrigger:{ trigger:'#payoff', start:'top top', end:'+=320%', pin:true, scrub }
+  });
+  tl6.fromTo('#payoff .frame[data-i="a"] img', {scale:1.1}, {scale:1, duration:5.2}, 0);
+  tl6.to(lines('#payoff .t'), {yPercent:0, duration:.6, stagger:.14, ease:'power3.out'}, 0.9);
+  tl6.to(lines('#payoff .t'), {yPercent:-112, duration:.45, stagger:.06}, 4.6);
+  tl6.to('#payoff .frame[data-i="b"]', {opacity:1, duration:1.3}, 5.0);
+  tl6.fromTo('#payoff .frame[data-i="b"] img', {scale:1.08}, {scale:1, duration:5.0}, 5.0);
+  tl6.to(lines('#payoff .t2'), {yPercent:0, duration:.6, stagger:.14, ease:'power3.out'}, 6.7);
+  tl6.to({}, {duration:.4}, 9.6);
+
+  /* ---------- FINAL ---------- */
+  gsap.from('#final > div:first-child > *', {
+    scrollTrigger:{ trigger:'#final', start:'top 70%' },
+    opacity:0, y:24, duration:.9, stagger:.12, ease:'power2.out'
+  });
+
+  /* ---------- PERSONAL : DATA SAVINGS PLAN ---------- */
+  gsap.from('#dsp .wrap > *', {
+    scrollTrigger:{ trigger:'#dsp', start:'top 75%' },
+    opacity:0, y:24, duration:.9, stagger:.15, ease:'power2.out'
+  });
+
+  /* ---------- PERSONAL : FAQ ACCORDION ---------- */
+  $$('#faq .item').forEach(item => {
+    item.addEventListener('click', () => {
+      const open = item.getAttribute('aria-expanded') === 'true';
+      item.setAttribute('aria-expanded', String(!open));
+    });
+  });
+
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DrumWave Business: Empower your customers to power your business</title>
+<meta name="description" content="Give customers more than the product or service they came for. Enrich what you offer with data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#070707;
+  --bone:#F3F2EE;
+  --cobalt:#1F5BFF;
+  --green:#1FB25A;
+  --mute:#8A8A86;
+  --line:rgba(243,242,238,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);color:var(--bone)}
+body{
+  font-family:'Open Sans',system-ui,-apple-system,sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  line-height:1.3;
+}
+img{display:block;user-select:none;-webkit-user-drag:none;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+.mono{
+  font-family:'Open Sans',system-ui,sans-serif;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute);font-weight:400;
+}
+.display{font-family:'Titillium Web',system-ui,sans-serif;font-weight:300;letter-spacing:-.025em;line-height:.98}
+
+/* nav (shared with index.html) */
+.nav{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:50;
+  width:min(900px,92vw);height:64px;padding:0 10px 0 26px;
+  display:flex;align-items:center;gap:22px;
+  border:1px solid rgba(243,242,238,.12);border-radius:40px;
+  background:rgba(7,7,7,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-family:'Open Sans',sans-serif;font-size:14px;
+}
+.nav .logo{display:flex;align-items:center;gap:14px;padding-right:18px;border-right:1px solid rgba(243,242,238,.14)}
+.nav .logo img{width:30px;height:30px;display:block;object-fit:contain;flex:none}
+.nav .logo b{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.01em}
+.nav .links{display:flex;gap:26px;margin-left:auto}
+.nav .links a{font-weight:600}
+.nav .links a.dim{font-weight:400;opacity:.8}
+.nav .sep{width:1px;height:26px;background:rgba(243,242,238,.14)}
+.nav .pill{padding:11px 18px;border-radius:30px;border:1px solid rgba(243,242,238,.25);font-weight:400;transition:background .25s,border-color .25s}
+.nav .pill.p{background:linear-gradient(90deg, #109126 0%, #11c04a 100%);border-color:transparent;font-weight:600}
+.nav .pill:hover{background:rgba(243,242,238,.1)}
+.nav .pill.p:hover{background:linear-gradient(90deg, #12a62c 0%, #14d654 100%);border-color:transparent;filter:brightness(1.1)}
+@media (max-width:760px){.nav{height:54px;padding:0 6px 0 16px;gap:12px}.nav .links,.nav .sep,.nav .pill:not(.p){display:none}.nav .logo{border:0;padding-right:0}.nav .pill.p{margin-left:auto;padding:9px 14px;font-size:13px}}
+
+/* BUSINESS: HERO
+   Figma node 2611:82673, section h=1921 on 1920 canvas ref */
+#bhero{
+  position:relative;height:87.45vw;min-height:900px;
+  background:#070707;overflow:hidden;
+}
+#bhero .glow-box{
+  position:absolute;
+  top:10.5729vw; /* Y: 203px on 1920px canvas */
+  left:37.2917vw; /* X: 716px on 1920px canvas */
+  width:54.0625vw; /* L: 1038px on 1920px canvas */
+  height:5.41667vw; /* A: 104px on 1920px canvas */
+  border-radius:100px;
+  background:#169C39;
+  opacity:0.30;
+  filter:blur(100px); /* Layer blur 150px */
+  pointer-events:none;
+  z-index:2;
+}
+#bhero .bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:2;pointer-events:none;
+}
+#bhero::after{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:85vw;height:45vw;background:radial-gradient(ellipse 65% 55% at 50% 100%, rgba(31,178,90,0.45) 0%, rgba(7,7,7,0) 75%);
+  pointer-events:none;
+  z-index:1;
+}
+#bhero .top-glow{
+  position:absolute;top:0;right:0;left:auto;transform:none;
+  width:69.6875vw;max-width:1338px;height:auto;
+  z-index:1;pointer-events:none;
+}
+#bhero .wrap{
+  position:absolute;left:50%;top:10.57vw;transform:translateX(-50%);
+  width:46.875vw;max-width:900px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:2.1875vw;z-index:2;
+}
+#bhero h1{
+  font-family:'Titillium Web',sans-serif;font-size:3.33333vw;font-weight:400;
+  line-height:0.93;letter-spacing:-0.13333vw;color:#FFFFFF;text-align:center;
+}
+#bhero .sub{
+  width:41.302vw;max-width:793px;
+  font-family:'Open Sans',sans-serif;font-size:0.9375vw;font-weight:600;
+  line-height:1.38;letter-spacing:0;color:rgba(255,255,255,0.60);text-align:center;
+}
+#bhero .btn-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  gap:0.83333vw;
+}
+#bhero .btn{
+  display:flex;align-items:center;justify-content:center;
+  padding:0.989vw 2.1vw;
+  border-radius:56px;background:#FFFFFF;color:#000000;
+  font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.04167vw;
+  line-height:1;white-space:nowrap;
+  transition:filter .25s,transform .2s;
+}
+#bhero .btn:hover,#bhero .btn:focus-visible{
+  filter:brightness(0.92);transform:translateY(-1px);outline:none;
+}
+#bhero .safe{
+  font-family:'Open Sans',sans-serif;font-weight:400;font-size:0.625vw;
+  letter-spacing:0.104167vw;text-transform:uppercase;color:#FFFFFF;opacity:0.8;
+  text-align:center;white-space:nowrap;
+}
+#bhero .graph{
+  position:absolute;bottom:-2px;left:0;width:100%;height:auto;z-index:1;
+  object-fit:cover;pointer-events:none;
+}
+#bhero .particles { position: absolute; inset: 0; width: 100%; height: 100vw; z-index: 2; pointer-events: none; margin-top: -7.55vw; }
+#bhero .particles img { position: absolute; object-fit: contain; }
+#bhero .particles .p-1 { left: 31.5625%; top: 52.9932%; width: 10.8854%; }
+#bhero .particles .p-2 { left: 49.6875%; top: 75.5336%; width: 10.8854%; }
+#bhero .particles .p-3 { left: 20.1562%; top: 50.4945%; width: 7.8646%; }
+#bhero .particles .p-4 { left: 57.8646%; top: 62.3634%; width: 10.4688%; }
+#bhero .particles .p-5 { left: 48.8542%; top: 53.9302%; width: 9.4792%; }
+#bhero .particles .p-6 { left: 27.1875%; top: 67.0484%; width: 16.9792%; }
+#bhero .particles .p-7 { left: 67.0833%; top: 50.0260%; width: 11.1979%; }
+#bhero .particles .p-8 { left: 67.8646%; top: 72.8267%; width: 13.0208%; }
+#bhero .particles .p-9 { left: 80.4167%; top: 52.2644%; width: 6.0938%; }
+#bhero .particles .p-10 { left: 45.5208%; top: 65.5388%; width: 6.5104%; }
+#bhero .particles .p-11 { left: 76.5625%; top: 61.2181%; width: 6.9271%; }
+#bhero .particles .p-12 { left: 21.7188%; top: 60.0729%; width: 8.9062%; }
+#bhero .particles .dot { position: absolute; border-radius: 50%; background: #1FB25A; }
+#bhero .particles .d-1 { left: 69.4792%; top: 62.6757%; width: 2.3438%; height: 2.3438vw; }
+#bhero .particles .d-2 { left: 46.1979%; top: 74.7527%; width: 2.3438%; height: 2.3438vw; }
+#bhero .particles .d-3 { left: 64.2708%; top: 75.2212%; width: 1.8750%; height: 1.8750vw; }
+#bhero .particles .d-4 { left: 83.8021%; top: 68.8183%; width: 2.3438%; height: 2.3438vw; }
+#bhero .particles .d-5 { left: 64.2708%; top: 84.0187%; width: 2.3438%; height: 2.3438vw; }
+#bhero .particles .d-6 { left: 44.1667%; top: 59.3441%; width: 2.8646%; height: 2.8646vw; }
+#bhero .particles .d-7 { left: 48.0729%; top: 61.7387%; width: 0.9375%; height: 0.9375vw; }
+#bhero .particles .d-8 { left: 81.3542%; top: 71.0047%; width: 0.9375%; height: 0.9375vw; }
+#bhero .particles .d-9 { left: 25.7292%; top: 70.2238%; width: 0.9375%; height: 0.9375vw; }
+#bhero .particles .d-10 { left: 73.0208%; top: 62.0510%; width: 0.9375%; height: 0.9375vw; }
+#bhero .particles .d-11 { left: 50.0000%; top: 74.0239%; width: 0.9375%; height: 0.9375vw; }
+#bhero .particles .d-12 { left: 80.4167%; top: 63.8730%; width: 0.9375%; height: 0.9375vw; }
+#bhero .particles .d-13 { left: 48.2812%; top: 79.0734%; width: 0.5208%; height: 0.5208vw; }
+#bhero .particles .d-14 { left: 19.6875%; top: 57.8865%; width: 0.9375%; height: 0.9375vw; }
+#bhero .particles .d-15 { left: 21.7188%; top: 74.3363%; width: 3.2292%; height: 3.2292vw; }
+#bhero .tooltip{
+  position:absolute;left:53.59%;top:34.41vw;width:18.44%;padding:1.04vw 1.56vw;
+  border-radius:16px;background:rgba(31,178,90,.12);border:1px solid rgba(31,178,90,.35);
+  backdrop-filter:blur(10px);z-index:3;
+}
+#bhero .tooltip .head{display:flex;align-items:center;justify-content:flex-start;gap:0.416vw;margin-bottom:1vw}
+#bhero .tooltip .head svg{width:1.25vw;height:1.25vw;fill:#00FF91;flex:none}
+#bhero .tooltip .head span{font-family:'Inter',sans-serif;font-weight:700;font-size:.625vw;letter-spacing:.05vw;color:#00FF91;text-transform:uppercase}
+#bhero .tooltip .label{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.25vw;line-height:1.15;color:#FFFFFF;margin-bottom:1vw}
+#bhero .tooltip hr{border:0;border-top:1px solid rgba(243,242,238,.14);margin-bottom:1vw}
+#bhero .tooltip p{font-family:'Open Sans',sans-serif;font-size:.73vw;line-height:1.4;color:#B8B8B8}
+
+/* BUSINESS: INTRODUCING THE BUSINESS DWALLET
+   Figma node 2611:82959, section h=944 on 1920 canvas ref */
+#bintro{position:relative;height:49.17vw;min-height:520px;background:var(--ink);overflow:hidden}
+#bintro .glow{
+  position:absolute;top:0;left:0;width:100%;height:auto;z-index:1;
+  pointer-events:none;
+}
+#bintro .wrap{position:absolute;inset:0;z-index:2}
+#bintro .eyebrow{position:absolute;left:17.4%;top:6.61vw;font-family:'Titillium Web',sans-serif;font-weight:600;font-size:.83vw;letter-spacing:.08vw;color:var(--bone)}
+#bintro h2{position:absolute;left:17.4%;top:7.97vw;width:36.09%;font-size:4.1667vw;font-weight:400;line-height:1.05;letter-spacing:-.1667vw}
+#bintro .sub{position:absolute;left:17.4%;top:19.53vw;width:29.69%;font-size:2.0833vw;font-weight:400;line-height:1.05}
+#bintro .sub .cob{color:#16be76;font-weight:400}
+#bintro p{position:absolute;left:17.4%;top:25.36vw;width:30.31%;font-family:'Open Sans',sans-serif;font-size:.83vw;color:var(--bone);opacity:.7;line-height:1.5;font-weight:400}
+#bintro .form{
+  position:absolute;left:17.4%;top:35.78vw;width:27.4%;height:3.75vw;
+  display:flex;align-items:center;gap:.42vw;padding:.42vw .42vw .42vw 1.25vw;
+  background:#2F2F2F;border-radius:100px;
+}
+#bintro .form input{
+  flex:1;min-width:0;padding:0;border:0;background:transparent;
+  color:#FFF;font-family:'Titillium Web',sans-serif;font-size:1.04vw;font-weight:400;
+}
+#bintro .form input::placeholder{color:#FFFFFF;opacity:1}
+#bintro .form input:focus{outline:none}
+#bintro .form .btn{
+  font-family:'Titillium Web',sans-serif;font-size:.9375vw;font-weight:600;white-space:nowrap;
+  height:100%;padding:0 2.14vw;border-radius:100px;border:0;color:#FFF;cursor:pointer;
+  background:linear-gradient(132deg,#4B27FF 1.9%,#0091FF 100.6%);
+  transition:filter .25s;
+}
+#bintro .form .btn:hover,#bintro .form .btn:focus-visible{filter:brightness(1.12);outline:none}
+#bintro .link{
+  position:absolute;left:17.4%;top:40.36vw;
+  font-family:'Titillium Web',sans-serif;font-size:.9375vw;font-weight:600;color:#278eff;
+  padding:.625vw 1.25vw;border-radius:100px;
+}
+#bintro .link:hover{text-decoration:underline}
+#bintro .mockup{position:absolute;left:54.22%;top:21.5%;width:41.61%;-webkit-mask-image:linear-gradient(to bottom,black 76.6%,transparent 100%);mask-image:linear-gradient(to bottom,black 76.6%,transparent 100%);}
+
+/* BUSINESS: BENEFITS
+   Figma node 2611:82851, section h=717 on 1920 canvas ref */
+#bbenefits{position:relative;height:37.34vw;min-height:420px;background:var(--ink);margin-bottom:12vw}
+#bbenefits h2{position:absolute;left:18.7%;top:0;width:65.78%;font-size:2.5vw;font-weight:400;letter-spacing:-.1vw;color:var(--bone)}
+#bbenefits .card{position:absolute;top:14.5%;width:17.71%}
+#bbenefits .card img{width:100%;border-radius:14px;display:block;object-fit:cover;aspect-ratio:320/442}
+#bbenefits .step-copy{margin-top:2.27vw}
+#bbenefits h3{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.25vw;letter-spacing:-.0375vw;color:var(--bone);margin-bottom:.6em}
+#bbenefits p{font-family:'Open Sans',sans-serif;font-weight:400;font-size:.73vw;line-height:1.4;color:#999}
+
+/* BUSINESS: DWALLET FOR ENTERPRISE
+   Figma node 2611:83299, section h=1092 on 1920 canvas ref */
+#benterprise{position:relative;height:56.88vw;min-height:560px;background:linear-gradient(rgba(11,82,55,0.2), rgba(11,82,55,0.2)), var(--ink);overflow:hidden}
+#benterprise .glow{position:absolute;top:-37.86vw;left:50.67vw;width:82.03vw;height:82.03vw;border-radius:50%;background:#0B993F;opacity:0.3;filter:blur(108px);pointer-events:none}
+#benterprise h2{position:absolute;left:14.32%;top:7.65vw;width:40.05%;font-size:3.33vw;font-weight:400;letter-spacing:-.1333vw;line-height:0.93;color:#FFF}
+#benterprise p{position:absolute;left:14.32%;top:12.96vw;width:26.2%;font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:600;line-height:1.38;color:#FFF}
+#benterprise .btn{
+  position:absolute;left:14.32%;top:21.4vw;width:auto;text-align:center;
+  padding:.625vw 1.25vw;border-radius:500px;border:none;background:#FFF;
+  font-family:'Titillium Web',sans-serif;font-weight:600;font-size:.9375vw;color:#090908;
+  transition:background .25s,transform .25s;
+}
+#benterprise .btn:hover{background:#F3F2EE;transform:translateY(-2px)}
+#benterprise .dashboard{position:absolute;right:0;top:23.23vw;width:54.95vw;z-index:1}
+
+/* FAQ (shared pattern, section h=797) */
+#faq{position:relative;height:41.51vw;min-height:460px;background:var(--ink);overflow:hidden}
+#faq .faq-label{position:absolute;left:18.75%;top:17.31%;font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.04vw;line-height:1.1;color:#FFF;z-index:1}
+#faq h2{position:absolute;left:18.75%;top:22.58%;width:20.05%;font-size:3.33vw;font-weight:400;letter-spacing:-.1333vw;line-height:0.93;color:#FFF}
+#faq .accordion{position:absolute;left:48.65%;top:17.31%;width:32.6%}
+#faq .item{
+  display:flex;align-items:center;justify-content:space-between;gap:1vw;width:100%;
+  padding:1.4583vw;margin-bottom:.625vw;border-radius:16px;background:rgba(255,255,255,0.05);
+  border:1px solid rgba(237,240,242,0.1);box-shadow:0px 4px 8px 0px rgba(0,0,0,0.02);
+  text-align:left;cursor:pointer;
+}
+#faq .item span{flex:1 0 0;min-width:0;font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.04vw;line-height:1.1;letter-spacing:-.03125vw;color:#FFF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#faq .item i{font-style:normal;font-family:'Open Sans',sans-serif;font-size:.9375vw;color:#6E7680;flex:none;transition:transform .25s}
+#faq .item[aria-expanded="true"] i{transform:rotate(45deg)}
+
+/* WELCOME (shared pattern, section h=402) */
+#welcome{position:relative;height:20.94vw;min-height:280px;background:var(--ink);text-align:center;padding:0}
+#welcome h2{position:absolute;left:0;top:4.16vw;width:100%;text-align:center;font-size:3.33vw;font-weight:400;letter-spacing:-.1333vw;line-height:0.93;color:#FFF}
+#welcome p{position:absolute;left:0;top:8.33vw;width:100%;text-align:center;font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:600;line-height:1.38;color:rgba(255,255,255,0.7)}
+#welcome .form{
+  position:absolute;left:36.3vw;top:13.02vw;width:27.4vw;height:3.75vw;
+  display:flex;align-items:center;gap:.42vw;padding:.4vw .4vw .4vw 1.25vw;
+  background:#2F2F2F;border-radius:100px;
+}
+#welcome .form input{
+  flex:1;min-width:0;padding:0;border:0;background:transparent;
+  color:#FFF;font-family:'Titillium Web',sans-serif;font-size:1.04vw;font-weight:400;
+}
+#welcome .form input::placeholder{color:#FFFFFF;opacity:1}
+#welcome .form input:focus{outline:none}
+#welcome .form .btn{
+  font-family:'Titillium Web',sans-serif;font-size:.9375vw;font-weight:600;white-space:nowrap;
+  height:100%;padding:0 2.16vw;border-radius:56px;border:0;color:#FFF;cursor:pointer;
+  background:linear-gradient(132deg,#4B27FF 1.9%,#0091FF 100.6%);
+  transition:filter .25s;
+}
+#welcome .form .btn:hover,#welcome .form .btn:focus-visible{filter:brightness(1.12);outline:none}
+
+/* FOOTER (shared pattern, section h=400) */
+#pfoot{position:relative;height:20.83vw;min-height:280px;background:var(--ink);overflow:hidden}
+#pfoot .wave-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+#pfoot .id{position:absolute;left:8.87%;top:19.5%;display:flex;align-items:center;gap:.6vw;z-index:1}
+#pfoot .id .logo{width:2.19vw;height:auto;display:block}
+#pfoot .id b{font-family:'Roboto',sans-serif;font-weight:700;font-size:1.25vw;color:var(--bone)}
+#pfoot .tagline{position:absolute;left:8.85%;top:34%;font-family:'Roboto',sans-serif;font-size:1.04vw;font-weight:400;color:#B4B4B4;z-index:1}
+#pfoot .copyright{position:absolute;left:8.85%;top:50%;width:14.69%;font-family:'Roboto',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.35;color:#666;z-index:1}
+#pfoot .col{position:absolute;top:23%;z-index:1;display:flex;flex-direction:column}
+#pfoot .col.links{left:49.22%}
+#pfoot .col.socials{left:70%}
+#pfoot .col b{font-family:'Roboto',sans-serif;font-weight:700;font-size:.9375vw;color:#E3E3E3;margin-bottom:1.3vw}
+#pfoot .col a{font-family:'Roboto',sans-serif;font-weight:400;font-size:.9375vw;color:#B4B4B4;margin-bottom:.7vw;transition:color .25s}
+#pfoot .col a:hover{color:#FFF}
+
+@media (max-width:900px){
+  #bhero{height:auto;min-height:0;padding:16vh 0 6vh}
+  #bhero .wrap{position:static;width:auto;left:auto;top:auto;transform:none;padding:0 5vw}
+  #bhero h1,#bhero .sub,#bhero .btn,#bhero .safe{position:static;width:auto;left:auto;top:auto;text-align:center;margin:0 auto 1.2em}
+  #bhero h1{font-size:clamp(2.2rem,8vw,3.6rem)}
+  #bhero .sub{font-size:clamp(1rem,3.6vw,1.2rem)}
+  #bhero .btn{width:fit-content;padding:16px 32px;font-size:16px}
+  #bhero .safe{font-size:11px}
+  #bhero .graph{position:absolute;top:auto;bottom:0;left:0;width:100%;margin-top:2em}
+  #bhero .particles{position:relative;height:90vw;margin-top:5vw}
+  #bhero .tooltip{position:static;width:100%;max-width:400px;margin:2em auto 0;transform:none}
+  #bhero .bg{position:absolute;height:100%;margin-top:0}
+
+  #bintro{height:auto;min-height:0;padding:16vh 5vw 8vh}
+  #bintro .wrap{position:static;display:flex;flex-direction:column;gap:3vh}
+  #bintro .eyebrow,#bintro h2,#bintro .sub,#bintro p,#bintro .form,#bintro .link,#bintro .mockup{position:static;width:auto;left:auto;top:auto}
+  #bintro h2{font-size:clamp(2.3rem,9vw,4rem);letter-spacing:-.03em}
+  #bintro .sub{font-size:clamp(1.4rem,5vw,2rem)}
+  #bintro p{font-size:15px}
+  #bintro .form{height:auto}
+  #bintro .form input{padding:15px 20px;font-size:15px}
+  #bintro .form .btn{padding:15px 22px;font-size:14px}
+  #bintro .link{font-size:14px}
+  #bintro .mockup{max-width:280px;align-self:center}
+
+  #bbenefits{height:auto;padding:6vh 5vw}
+  #bbenefits h2{position:static;width:auto;font-size:clamp(1.8rem,6vw,2.6rem);margin-bottom:4vh}
+  #bbenefits .card{position:static;width:100%;margin-bottom:6vh}
+
+  #benterprise{height:auto;padding:8vh 5vw}
+  #benterprise h2,#benterprise p,#benterprise .btn{position:static;width:auto;left:auto;top:auto;margin-bottom:1.2em}
+  #benterprise h2{font-size:clamp(2rem,8vw,3rem)}
+  #benterprise p{font-size:15px}
+  #benterprise .btn{width:fit-content;padding:14px 24px;font-size:15px}
+  #benterprise .dashboard{position:static;width:100%;margin-top:4vh}
+
+  #faq{height:auto;padding:8vh 5vw}
+  #faq .faq-label,#faq h2,#faq .accordion{position:static;width:auto;left:auto;top:auto}
+  #faq h2{font-size:clamp(2rem,8vw,3rem);margin:1em 0 1.5em}
+  #faq .accordion{margin-top:0}
+  #faq .item{padding:18px 20px;margin-bottom:10px}
+  #faq .item span{font-size:15px}
+
+  #welcome{height:auto;padding:8vh 5vw}
+  #welcome h2,#welcome p,#welcome .form{position:static;width:auto;left:auto;top:auto;margin:0 auto 1.2em}
+  #welcome h2{font-size:clamp(1.8rem,7vw,2.6rem)}
+  #welcome p{font-size:15px}
+  #welcome .form{height:auto;flex-direction:column;max-width:320px}
+  #welcome .form input{padding:15px 20px;font-size:15px}
+  #welcome .form .btn{padding:15px 22px;font-size:14px}
+
+  #pfoot{height:auto;padding:8vh 5vw}
+  #pfoot .id,#pfoot .tagline,#pfoot .copyright,#pfoot .col{position:static;left:auto;top:auto}
+  #pfoot .id .logo{width:24px}
+  #pfoot .id b{font-size:18px}
+  #pfoot .tagline{font-size:15px;margin-top:1em}
+  #pfoot .copyright{font-size:14px;width:auto;margin-top:1em}
+  #pfoot .col{margin-top:2em}
+  #pfoot .col b{font-size:15px;margin-bottom:1em}
+  #pfoot .col a{font-size:15px;margin-bottom:.8em}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" aria-label="dWallet">
+  <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="" width="30" height="30"><b>dWallet.</b></a>
+  <nav class="links"><a class="dim" href="index.html#dsp">Personal</a><a href="business.html">Business</a></nav>
+  <span class="sep"></span>
+  <a class="pill" href="https://business.drumwave.com/sign-in">Log in</a>
+  <a class="pill p" href="https://business.drumwave.com/">Open a Business dWallet</a>
+</header>
+
+<!-- HERO -->
+<section id="bhero" aria-label="Empower your customers to power your business">
+  <div class="glow-box"></div>
+  
+  <div class="wrap">
+    <h1 class="display">
+      Empower your customers to power<br>your business.
+    </h1>
+    <p class="sub">
+      Give customers more than the product or service they came for. With dWallet, you can
+      enrich what you offer with data, creating product differentiation while creating new revenue
+      opportunities and stronger relationships for your business.
+    </p>
+    <div class="btn-wrap">
+      <a class="btn" href="https://business.drumwave.com/">Open a Business dWallet</a>
+      <div class="safe">SAFE. SECURE. BANK-GRADE ENCRYPTION.</div>
+    </div>
+  </div>
+  
+  <img class="graph" src="assets/img/business/hero-clip-path-group.png" alt="">
+  <div class="particles">
+    <img class="p-1" src="assets/img/business/hero-particles/ellipse-22113-2611-82822.png" alt="">
+    <img class="p-2" src="assets/img/business/hero-particles/rectangle-2611-82823.png" alt="">
+    <img class="p-3" src="assets/img/business/hero-particles/ellipse-22129-2611-82824.png" alt="">
+    <img class="p-4" src="assets/img/business/hero-particles/ellipse-22117-2611-82825.png" alt="">
+    <img class="p-5" src="assets/img/business/hero-particles/ellipse-22116-2611-82826.png" alt="">
+    <img class="p-6" src="assets/img/business/hero-particles/ellipse-22119-2611-82827.png" alt="">
+    <img class="p-7" src="assets/img/business/hero-particles/ellipse-22115-2611-82828.png" alt="">
+    <img class="p-8" src="assets/img/business/hero-particles/rectangle-2611-82829.png" alt="">
+    <img class="p-9" src="assets/img/business/hero-particles/ellipse-22118-2611-82835.png" alt="">
+    <img class="p-10" src="assets/img/business/hero-particles/ellipse-22125-2611-82845.png" alt="">
+    <img class="p-11" src="assets/img/business/hero-particles/ellipse-22144-2611-82846.png" alt="">
+    <img class="p-12" src="assets/img/business/hero-particles/rectangle-2611-82848.png" alt="">
+    <div class="dot d-1"></div>
+    <div class="dot d-2"></div>
+    <div class="dot d-3"></div>
+    <div class="dot d-4"></div>
+    <div class="dot d-5"></div>
+    <div class="dot d-6"></div>
+    <div class="dot d-7"></div>
+    <div class="dot d-8"></div>
+    <div class="dot d-9"></div>
+    <div class="dot d-10"></div>
+    <div class="dot d-11"></div>
+    <div class="dot d-12"></div>
+    <div class="dot d-13"></div>
+    <div class="dot d-14"></div>
+    <div class="dot d-15"></div>
+  </div>
+  <div class="tooltip">
+    <div class="head">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m344-60-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm34-102 102-44 104 44 56-96 110-26-10-112 74-84-74-86 10-112-110-24-58-96-102 44-104-44-56 96-110 24 10 112-74 86 74 84-10 114 110 24 58 96Zm102-318Zm-42 142 226-226-56-58-170 170-86-84-56 56 142 142Z"/></svg>
+      <span>Customer data requests</span>
+    </div>
+    <div class="label display">5,235 of your customers have requested their data</div>
+    <hr>
+    <p>Sign up to enrich your products and match with your customers</p>
+  </div>
+</section>
+
+<!-- INTRODUCING THE BUSINESS DWALLET -->
+<section id="bintro" aria-label="Introducing the Business dWallet">
+  <img class="glow" src="assets/img/business/bintro-glow.png" alt="">
+  <div class="wrap">
+    <div class="eyebrow mono">THE SOLUTION</div>
+    <h2 class="display">Introducing the Business dWallet</h2>
+    <div class="sub display">Open a Business dWallet account today and <span class="cob">earn $200</span></div>
+    <p>Every purchase, visit, and interaction your customers make creates value. A Business dWallet gives your business new ways to benefit from that value, contribute Data Certificates back to customers, and turn everyday transactions into new revenue opportunities and stronger customer relationships.</p>
+    <form class="form" action="https://business.drumwave.com/" method="get">
+      <input type="email" placeholder="Enter work email" aria-label="Work email">
+      <button class="btn" type="submit">Contact sales team</button>
+    </form>
+    <a class="link" href="#">View offer &amp; sign up now &nbsp;&gt;</a>
+    <img class="mockup" src="assets/img/business/phone-mockup.png" alt="">
+  </div>
+</section>
+
+<!-- BENEFITS OF A BUSINESS DWALLET -->
+<section id="bbenefits" aria-label="Benefits of a Business dWallet">
+  <h2 class="display">Benefits of a Business dWallet</h2>
+  <div class="card" style="left:18.7%">
+    <img src="assets/img/business/benefit1-product-data.png" alt="">
+    <div class="step-copy">
+      <h3>Products enriched with data</h3>
+      <p>Enrich your products and services with data, turning every SKU into a traceable digital asset with product-level data ownership and richer context with every transaction.</p>
+    </div>
+  </div>
+  <div class="card" style="left:41.17%">
+    <img src="assets/img/business/benefit2-revenue.png" alt="">
+    <div class="step-copy">
+      <h3>New revenue stream</h3>
+      <p>Turn the data your business already generates into a managed asset you can save, value, and monetize.</p>
+    </div>
+  </div>
+  <div class="card" style="left:63.65%">
+    <img src="assets/img/business/benefit3-customer-value.png" alt="">
+    <div class="step-copy">
+      <h3>More value for your customers</h3>
+      <p>Give customers new ways to benefit from the data they generate, building trust and stronger relationships along the way.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DWALLET FOR ENTERPRISE -->
+<section id="benterprise" aria-label="dWallet for Enterprise">
+  <div class="glow"></div>
+  <h2 class="display">dWallet for Enterprise</h2>
+  <p>Upgrade your Business dWallet to an Enterprise Account to take custody of data assets, issue dWallets, and launch and manage Data Savings Plans for the people and businesses you serve. Enterprise Accounts don&rsquo;t just join the DrumWave ecosystem. They help build it.</p>
+  <a class="btn" href="#">Contact our sales team</a>
+  <img class="dashboard" src="assets/img/business/enterprise-dashboard.png" alt="">
+</section>
+
+<!-- FAQ -->
+<section id="faq" aria-label="Questions? We've got answers.">
+  <div class="faq-label">FAQS</div>
+  <h2 class="display">Questions? We&rsquo;ve got answers.</h2>
+  <div class="accordion">
+    <button class="item" aria-expanded="false">
+      <span>What is a Business dWallet?</span><i>+</i>
+    </button>
+    <button class="item" aria-expanded="false">
+      <span>How do I enrich my products and services with data?</span><i>+</i>
+    </button>
+    <button class="item" aria-expanded="false">
+      <span>How does a business or large enterprise earn revenue with dWallet?</span><i>+</i>
+    </button>
+    <button class="item" aria-expanded="false">
+      <span>What does an enterprise need to launch a Data Savings Plan?</span><i>+</i>
+    </button>
+    <button class="item" aria-expanded="false">
+      <span>Is my data safe with dWallet?</span><i>+</i>
+    </button>
+  </div>
+</section>
+
+<!-- WELCOME TO THE ONE ECONOMY -->
+<section id="welcome" aria-label="Welcome to the One Economy">
+  <h2 class="display">Welcome to the One Economy</h2>
+  <p>Where money and the value of data meet, giving everyone the opportunity to benefit.</p>
+  <form class="form" action="https://business.drumwave.com/" method="get">
+    <input type="email" placeholder="Enter work email" aria-label="Work email">
+    <button class="btn" type="submit">Contact sales team</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer id="pfoot">
+  <img class="wave-bg" src="assets/img/business/footer-waves.png" alt="">
+  <div class="id">
+    <img class="logo" src="assets/img/personal/drumwave-logo.png" alt="">
+    <b>DrumWave</b>
+  </div>
+  <p class="tagline">Your Life. Your Story. Your Data.</p>
+  <p class="copyright">Copyright &copy; 2026 DrumWave Inc. All rights reserved.</p>
+  <div class="col links">
+    <b>Links</b>
+    <a href="#">DrumWave.com</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="resources.html">Resources</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="col socials">
+    <b>Socials</b>
+    <a href="https://www.youtube.com/@Drumwave" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.linkedin.com/company/drumwave" target="_blank" rel="noopener">Linkedin</a>
+    <a href="https://x.com/DrumWaveInc" target="_blank" rel="noopener">X</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+  $$('#faq .item').forEach(item => {
+    item.addEventListener('click', () => {
+      const open = item.getAttribute('aria-expanded') === 'true';
+      item.setAttribute('aria-expanded', String(!open));
+    });
+  });
+})();
+</script>
+</body>
+</html>

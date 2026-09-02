@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DrumWave: Privacy Policy</title>
+<meta name="description" content="How DrumWave collects, uses, and discloses information from users of our Services.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#070707;
+  --bone:#F3F2EE;
+  --cobalt:#1F5BFF;
+  --green:#1FB25A;
+  --mute:#8A8A86;
+  --line:rgba(243,242,238,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);color:var(--bone)}
+body{
+  font-family:'Open Sans',system-ui,-apple-system,sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  line-height:1.3;
+}
+img{display:block;user-select:none;-webkit-user-drag:none;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+.mono{
+  font-family:'Open Sans',system-ui,sans-serif;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute);font-weight:400;
+}
+.display{font-family:'Titillium Web',system-ui,sans-serif;font-weight:300;letter-spacing:-.025em;line-height:.98}
+
+/* nav (shared with index.html / business.html) */
+.nav{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:50;
+  width:min(900px,92vw);height:64px;padding:0 10px 0 26px;
+  display:flex;align-items:center;gap:22px;
+  border:1px solid rgba(243,242,238,.12);border-radius:40px;
+  background:rgba(7,7,7,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-family:'Open Sans',sans-serif;font-size:14px;
+}
+.nav .logo{display:flex;align-items:center;gap:14px;padding-right:18px;border-right:1px solid rgba(243,242,238,.14)}
+.nav .logo img{width:30px;height:30px;display:block;object-fit:contain;flex:none}
+.nav .logo b{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.01em}
+.nav .links{display:flex;gap:26px;margin-left:auto}
+.nav .links a{font-weight:600}
+.nav .links a.dim{font-weight:400;opacity:.8}
+.nav .sep{width:1px;height:26px;background:rgba(243,242,238,.14)}
+.nav .pill{padding:11px 18px;border-radius:30px;border:1px solid rgba(243,242,238,.25);font-weight:400;transition:background .25s,border-color .25s}
+.nav .pill.p{background:linear-gradient(90deg, #109126 0%, #11c04a 100%);border-color:transparent;font-weight:600}
+.nav .pill:hover{background:rgba(243,242,238,.1)}
+.nav .pill.p:hover{background:linear-gradient(90deg, #12a62c 0%, #14d654 100%);border-color:transparent;filter:brightness(1.1)}
+@media (max-width:760px){.nav{height:54px;padding:0 6px 0 16px;gap:12px}.nav .links,.nav .sep,.nav .pill:not(.p){display:none}.nav .logo{border:0;padding-right:0}.nav .pill.p{margin-left:auto;padding:9px 14px;font-size:13px}}
+
+/* PAGE HERO */
+#phero{position:relative;padding:15.6vw 0 4vw;background:var(--ink);text-align:center;overflow:hidden}
+#phero::after{
+  position:absolute;left:50%;bottom:-6vw;transform:translateX(-50%);
+  width:85vw;height:45vw;background:radial-gradient(ellipse 65% 55% at 50% 100%, rgba(31,178,90,0.45) 0%, rgba(7,7,7,0) 75%);
+  pointer-events:none;z-index:0;
+}
+#phero .orb{position:absolute;top:8vw;left:50%;transform:translateX(-50%);width:70vw;max-width:1300px;z-index:0;pointer-events:none;opacity:1;mix-blend-mode:screen}
+#phero .eyebrow{position:relative;z-index:1}
+#phero h1{position:relative;z-index:1;font-size:3.33vw;font-weight:400;letter-spacing:-.1333vw;line-height:0.93;color:#FFF;margin-top:1.2vw}
+#phero .updated{position:relative;z-index:1;margin-top:1.2vw;font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:600;color:rgba(255,255,255,.6)}
+
+/* LEGAL BODY */
+#legal{position:relative;background:var(--ink);padding:2vw 0 8vw}
+#legal .wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:0 5vw}
+#legal p.lead{font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.6;color:rgba(255,255,255,.75);margin-bottom:2.2vw}
+#legal h2{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.6vw;letter-spacing:-.02em;color:#FFF;margin:3.2vw 0 1vw}
+#legal h2:first-child{margin-top:0}
+#legal h3{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.05vw;letter-spacing:-.01em;color:#FFF;margin:1.6vw 0 .5vw}
+#legal p{font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.7;color:rgba(255,255,255,.7);margin-bottom:1vw}
+#legal p b{font-weight:600;color:#FFF}
+#legal ul{margin:0 0 1vw 1.4vw;padding:0}
+#legal li{font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.7;color:rgba(255,255,255,.7);margin-bottom:.5vw}
+#legal a.inline{color:var(--green);text-decoration:underline;text-underline-offset:2px}
+#legal a.inline:hover{color:#3ad478}
+#legal hr{border:0;border-top:1px solid rgba(243,242,238,.14);margin:2.6vw 0}
+
+/* WELCOME (shared pattern) */
+#welcome{position:relative;height:20.94vw;min-height:280px;background:var(--ink);text-align:center;padding:0}
+#welcome h2{position:absolute;left:0;top:4.16vw;width:100%;text-align:center;font-size:3.33vw;font-weight:400;letter-spacing:-.1333vw;line-height:0.93;color:#FFF}
+#welcome p{position:absolute;left:0;top:8.33vw;width:100%;text-align:center;font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:600;line-height:1.38;color:rgba(255,255,255,0.7)}
+#welcome .form{
+  position:absolute;left:36.3vw;top:13.02vw;width:27.4vw;height:3.75vw;
+  display:flex;align-items:center;gap:.42vw;padding:.4vw .4vw .4vw 1.25vw;
+  background:#2F2F2F;border-radius:100px;
+}
+#welcome .form input{
+  flex:1;min-width:0;padding:0;border:0;background:transparent;
+  color:#FFF;font-family:'Titillium Web',sans-serif;font-size:1.04vw;font-weight:400;
+}
+#welcome .form input::placeholder{color:#FFFFFF;opacity:1}
+#welcome .form input:focus{outline:none}
+#welcome .form .btn{
+  font-family:'Titillium Web',sans-serif;font-size:.9375vw;font-weight:600;white-space:nowrap;
+  height:100%;padding:0 2.16vw;border-radius:56px;border:0;color:#FFF;cursor:pointer;
+  background:linear-gradient(132deg,#4B27FF 1.9%,#0091FF 100.6%);
+  transition:filter .25s;
+}
+#welcome .form .btn:hover,#welcome .form .btn:focus-visible{filter:brightness(1.12);outline:none}
+
+/* FOOTER (shared pattern) */
+#pfoot{position:relative;height:20.83vw;min-height:280px;background:var(--ink);overflow:hidden}
+#pfoot .wave-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+#pfoot .id{position:absolute;left:8.87%;top:19.5%;display:flex;align-items:center;gap:.6vw;z-index:1}
+#pfoot .id .logo{width:2.19vw;height:auto;display:block}
+#pfoot .id b{font-family:'Roboto',sans-serif;font-weight:700;font-size:1.25vw;color:var(--bone)}
+#pfoot .tagline{position:absolute;left:8.85%;top:34%;font-family:'Roboto',sans-serif;font-size:1.04vw;font-weight:400;color:#B4B4B4;z-index:1}
+#pfoot .copyright{position:absolute;left:8.85%;top:50%;width:14.69%;font-family:'Roboto',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.35;color:#666;z-index:1}
+#pfoot .col{position:absolute;top:23%;z-index:1;display:flex;flex-direction:column}
+#pfoot .col.links{left:49.22%}
+#pfoot .col.socials{left:70%}
+#pfoot .col b{font-family:'Roboto',sans-serif;font-weight:700;font-size:.9375vw;color:#E3E3E3;margin-bottom:1.3vw}
+#pfoot .col a{font-family:'Roboto',sans-serif;font-weight:400;font-size:.9375vw;color:#B4B4B4;margin-bottom:.7vw;transition:color .25s}
+#pfoot .col a:hover{color:#FFF}
+
+@media (max-width:900px){
+  #phero{padding:20vh 5vw 6vh}
+  #phero h1{font-size:clamp(1.8rem,7vw,2.6rem)}
+  #phero .updated{font-size:14px}
+
+  #legal .wrap{padding:0 6vw}
+  #legal p.lead{font-size:15px}
+  #legal h2{font-size:22px}
+  #legal h3{font-size:16px}
+  #legal p,#legal li{font-size:15px}
+
+  #welcome{height:auto;padding:8vh 5vw}
+  #welcome h2,#welcome p,#welcome .form{position:static;width:auto;left:auto;top:auto;margin:0 auto 1.2em}
+  #welcome h2{font-size:clamp(1.8rem,7vw,2.6rem)}
+  #welcome p{font-size:15px}
+  #welcome .form{height:auto;flex-direction:column;max-width:320px}
+  #welcome .form input{padding:15px 20px;font-size:15px}
+  #welcome .form .btn{padding:15px 22px;font-size:14px}
+
+  #pfoot{height:auto;padding:8vh 5vw}
+  #pfoot .id,#pfoot .tagline,#pfoot .copyright,#pfoot .col{position:static;left:auto;top:auto}
+  #pfoot .id .logo{width:24px}
+  #pfoot .id b{font-size:18px}
+  #pfoot .tagline{font-size:15px;margin-top:1em}
+  #pfoot .copyright{font-size:14px;width:auto;margin-top:1em}
+  #pfoot .col{margin-top:2em}
+  #pfoot .col b{font-size:15px;margin-bottom:1em}
+  #pfoot .col a{font-size:15px;margin-bottom:.8em}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" aria-label="dWallet">
+  <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="" width="30" height="30"><b>dWallet.</b></a>
+  <nav class="links"><a class="dim" href="index.html#dsp">Personal</a><a class="dim" href="business.html">Business</a></nav>
+  <span class="sep"></span>
+  <a class="pill" href="https://personal.drumwave.com/sign-in">Log in</a>
+  <a class="pill p" href="https://personal.drumwave.com/">Open an Account</a>
+</header>
+
+<!-- HERO -->
+<section id="phero" aria-label="Privacy Policy">
+  <img class="orb" src="assets/img/hero-glow-soft.png" alt="">
+  <div class="eyebrow mono">LEGAL</div>
+  <h1 class="display">Privacy Policy</h1>
+  <p class="updated">Last Updated: August 7, 2025</p>
+</section>
+
+<!-- LEGAL BODY -->
+<section id="legal" aria-label="Privacy Policy details">
+  <div class="wrap">
+    <p class="lead">DrumWave, Inc. (&ldquo;DrumWave,&rdquo; &ldquo;we,&rdquo; &ldquo;our,&rdquo; and/or &ldquo;us&rdquo;) values the privacy of individuals who use our application, websites, and related services (collectively, our &ldquo;Services&rdquo;). This privacy policy (the &ldquo;Privacy Policy&rdquo;) explains how we collect, use, and disclose information from users of our Services (&ldquo;Users&rdquo;). By using our Services, you agree to the collection, use, disclosure, and procedures this Privacy Policy describes. Beyond the Privacy Policy, your use of our website is subject to our website terms, and your use of the Services is also subject to our Terms of Service, which are available upon registration and within the platform.</p>
+    <p class="lead">This Privacy Policy does not apply to the extent we process information in the role of a processor or service provider on behalf of our customers (for example, on behalf of the merchants from whom you purchase products or services directly). In that context, our processing of your personal information is subject to our agreements with our customers. Our customers are the data controllers and their privacy policies will apply to the processing of your personal information. We are not responsible for the privacy or data security practices of our customers, which may differ from those explained in this Privacy Policy.</p>
+
+    <hr>
+
+    <h2>Information We Collect</h2>
+    <p>We may collect a variety of information from or about you or your devices from various sources, as described below.</p>
+
+    <h3>A. Information You Provide to Us</h3>
+    <p><b>Registration and Account Information.</b> When you sign up for an account, we ask you for your name, email address, the U.S. state in which you reside, phone number. You may also choose to provide a profile photo for your account.</p>
+    <p><b>Communications.</b> If you contact us directly, we may receive additional information about you, such as your name, email address, the contents of a message or attachments that you may send to us, referral information, and other information you choose to provide. When you communicate with us online, third party vendors receive and store these communications on our behalf. If you subscribe to our newsletter, then we will collect certain information from you, such as your name and email address. When we send you emails, we may use embedded pixels or other technologies to track information about your receipt and interaction with our emails, such as whether and when you open them, whether you access any links included in our emails, how long you read our emails, whether you forward our emails and to whom, your Location Information (described below), and your Device Information (described below), to learn how to deliver a better customer experience and improve our Services.</p>
+    <p><b>Contact Forms.</b> If you complete one of our contact forms, we may collect information such as your name, email address, the content of your message, and referral information.</p>
+    <p><b>Third-Party Data Requests.</b> If you make a request for DrumWave to request your data on behalf of a third-party, we will ask you to confirm your email address used for the third-party service.</p>
+    <p><b>Careers.</b> If you decide that you wish to apply for a job with us, you may submit your contact information and your resume online. We will collect the information you choose to provide on your resume, such as your education and employment experience. You may also apply through a third party service, such as LinkedIn. If you do so, we will collect the information you make available to us through that service.</p>
+    <p><b>Payment Information.</b> If you make a payment on our Services, your payment-related information, such as credit card or other financial information, is collected by our third-party payment processor on our behalf.</p>
+
+    <h3>B. Information We Collect When You Use Our Services</h3>
+    <p><b>Device Information.</b> We receive information about the device and software you use to access our Services, including IP address, device type, device identifiers, web browser type and version, operating system version.</p>
+    <p><b>Usage Information.</b> We automatically receive information about your interactions with our Services, like the pages or other content you view, referrer information (the website you visited before coming to our Services), and the dates and times of your visits.</p>
+    <p><b>Information from Cookies and Other Tracking Technologies.</b> We and our third-party partners collect information about your activities on our Services using cookies, pixel tags, SDKs, or other tracking technologies. Our third-party partners, such as analytics, advertising, and security partners, may also use these technologies to collect information about your online activities over time and across different services.</p>
+
+    <h3>C. Information We Receive from Other Sources</h3>
+    <p><b>Information from Third-Party Services.</b> When you use our Services to where there is an integrated third-party service provider, we may receive information about you, including information you consent to send us about the services the third-party provided to you. For example, we may receive identity verification information from our identity verification service provider. If you wish to limit the information available to us, you should visit the privacy settings of your third-party accounts to learn about your options.</p>
+
+    <hr>
+
+    <h2>How We Use the Information We Collect</h2>
+    <p>We use the information we collect:</p>
+    <ul>
+      <li>To provide, maintain, improve, and enhance our Services;</li>
+      <li>To personalize your experience on our Services such as by providing tailored content and recommendations;</li>
+      <li>To understand and analyze how you use our Services and develop new products, services, features, and functionality;</li>
+      <li>To communicate with you, provide you with updates and other information relating to our Services, provide information that you request, respond to comments and questions, and otherwise provide customer support;</li>
+      <li>To facilitate the connection of third-party entities on our platform, such as data agents and data hosts;</li>
+      <li>For marketing and advertising purposes, such as developing and providing promotional and advertising materials that may be relevant, valuable or otherwise of interest to you;</li>
+      <li>To generate anonymized or aggregate data containing only de-identified, non-personal information that we may use for any lawful purposes such as to publish reports;</li>
+      <li>To facilitate transactions and payments;</li>
+      <li>To find and prevent fraud and abuse, and respond to trust and safety issues that may arise;</li>
+      <li>For compliance purposes, including enforcing our Terms of Service or other legal rights, or as may be required by applicable laws and regulations or requested by any judicial process or governmental agency; and</li>
+      <li>For other purposes for which we provide specific notice at the time the information is collected.</li>
+    </ul>
+
+    <hr>
+
+    <h2>How We Disclose the Information We Collect</h2>
+    <p><b>Affiliates.</b> We may disclose any information we receive to our current or future affiliates for any of the purposes described in this Privacy Policy.</p>
+    <p><b>Vendors and Service Providers.</b> We may disclose any information we receive to vendors and service providers retained in connection with the provision of our Services.</p>
+    <p><b>Retailer and Product Manufacturer Partners.</b> We may work with various partners so they can provide shopping-related services, promotions, advertising, and marketing to you when you use our Services. To facilitate these activities, we may provide information about you, including information that identifies you, to our partners, in each case with your explicit permission.</p>
+    <p><b>DrumWave Data Agents.</b> We work with various DrumWave data agents on the Service so that they can provide Data Saving Plan Exchange services to you when you use our Services. To facilitate these activities, we may provide information about you, including information that identifies you, to our partners.</p>
+    <p><b>Analytics Partners.</b> We use analytics services such as Google Analytics to collect and process certain analytics data. You can learn more about Google&rsquo;s practices by visiting <a class="inline" href="https://www.google.com/policies/privacy/partners/" target="_blank" rel="noopener">google.com/policies/privacy/partners</a>.</p>
+    <p><b>As Required By Law and Similar Disclosures.</b> We may access, preserve, and disclose your information if we believe doing so is required or appropriate to: (a) comply with law enforcement requests and legal process, such as a court order or subpoena; (b) respond to your requests; or (c) protect your, our, or others&rsquo; rights, property, or safety. For the avoidance of doubt, the disclosure of your information may occur if you post any objectionable content on or through the Services.</p>
+    <p><b>Merger, Sale, or Other Asset Transfers.</b> We may transfer your information to service providers, advisors, potential transactional partners, or other third parties in connection with the consideration, negotiation, or completion of a corporate transaction in which we are acquired by or merged with another company or we sell, liquidate, or transfer all or a portion of our assets. The use of your information following any of these events will be governed by the provisions of this Privacy Policy in effect at the time the applicable information was collected.</p>
+    <p><b>Consent.</b> We may also disclose your information with your permission.</p>
+    <p><b>At Your Direction via the Platform.</b> We do not sell your personal information. Certain features of our platform enable you to direct disclosures of data about you that may be held by third parties. When you choose to engage with these features, any resulting disclosures occur only in accordance with instructions provided by you or by an authorized agent acting on your behalf. Our role is to provide the technical infrastructure through which those instructions are carried out. We do not initiate or control those disclosures, and we do not share your personal information for our own commercial purposes.</p>
+
+    <hr>
+
+    <h2>Your Choices</h2>
+    <p><b>Sharing Preferences.</b> You may update, correct, or delete information about you at any time by emailing <a class="inline" href="mailto:privacy@DrumWave.com">privacy@DrumWave.com</a>. You may also delete your account by emailing us at <a class="inline" href="mailto:privacy@DrumWave.com">privacy@DrumWave.com</a>.</p>
+    <p><b>Marketing Communications.</b> You can unsubscribe from our promotional emails via the link provided in the emails. Even if you opt out of receiving promotional email messages from us, you will continue to receive administrative messages from us.</p>
+
+    <hr>
+
+    <h2>Third Parties</h2>
+    <p>Our Services may contain links to other websites, products, or services that we do not own or operate. We are not responsible for the privacy practices of these third parties. Please be aware that this Privacy Policy does not apply to your activities on these third-party services or any information you disclose to these third parties. We encourage you to read their privacy policies before providing any information to them.</p>
+
+    <hr>
+
+    <h2>Security</h2>
+    <p>We make reasonable efforts to protect your information by using physical and electronic safeguards designed to improve the security of the information we maintain. For more information on our security measures, please see our Trust Center. However, because no electronic transmission or storage of information can be entirely secure, we can make no guarantees as to the security or privacy of your information.</p>
+
+    <hr>
+
+    <h2>Children&rsquo;s Privacy</h2>
+    <p>We do not knowingly collect, maintain, or use personal information from children under 18 years of age, and no part of our Service(s) is directed to children. If you learn that a child has provided us with personal information in violation of this Privacy Policy, then you may alert us at <a class="inline" href="mailto:privacy@DrumWave.com">privacy@DrumWave.com</a>.</p>
+
+    <hr>
+
+    <h2>International Visitors</h2>
+    <p>Our Services are hosted in the United States and intended for visitors located within the United States. If you choose to use the Services from the European Union or other regions of the world with laws governing data collection and use that may differ from U.S. law, then please note that you are transferring your personal information outside of those regions to the U.S. for storage and processing. We may also transfer your data from the U.S. to other countries or regions in connection with storage and processing of data, fulfilling your requests, and operating the Services. By providing any information, including personal information, on or to the Services, you consent to such transfer, storage, and processing.</p>
+
+    <hr>
+
+    <h2>Changes to this Privacy Policy</h2>
+    <p>You can update your account information through your profile settings. We will post any adjustments to the Privacy Policy on this page, and the revised version will be effective when it is posted. If we materially change the ways in which we use or disclose personal information previously collected from you through the Services, we will notify you through the Services, by email, or other communication.</p>
+
+    <hr>
+
+    <h2>Contact Information</h2>
+    <p>If you have any questions, comments, or concerns about our processing activities, please email us at <a class="inline" href="mailto:privacy@DrumWave.com">privacy@DrumWave.com</a>.</p>
+  </div>
+</section>
+
+<!-- WELCOME TO THE ONE ECONOMY -->
+<section id="welcome" aria-label="Welcome to the One Economy">
+  <h2 class="display">Welcome to the One Economy</h2>
+  <p>Where money and the value of data meet, giving everyone the opportunity to benefit.</p>
+  <form class="form" action="https://personal.drumwave.com/" method="get">
+    <input type="email" placeholder="Enter email" aria-label="Email">
+    <button class="btn" type="submit">Get started</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer id="pfoot">
+  <img class="wave-bg" src="assets/img/business/footer-waves.png" alt="">
+  <div class="id">
+    <img class="logo" src="assets/img/personal/drumwave-logo.png" alt="">
+    <b>DrumWave</b>
+  </div>
+  <p class="tagline">Your Life. Your Story. Your Data.</p>
+  <p class="copyright">Copyright &copy; 2026 DrumWave Inc. All rights reserved.</p>
+  <div class="col links">
+    <b>Links</b>
+    <a href="#">DrumWave.com</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="#">Resources</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="col socials">
+    <b>Socials</b>
+    <a href="https://www.youtube.com/@Drumwave" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.linkedin.com/company/drumwave" target="_blank" rel="noopener">Linkedin</a>
+    <a href="https://x.com/DrumWaveInc" target="_blank" rel="noopener">X</a>
+  </div>
+</footer>
+
+</body>
+</html>

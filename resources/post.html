@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DrumWave: Resources</title>
+<meta name="description" content="News, press releases, and thought leadership from DrumWave.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#070707;
+  --bone:#F3F2EE;
+  --cobalt:#1F5BFF;
+  --green:#1FB25A;
+  --mute:#8A8A86;
+  --line:rgba(243,242,238,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);color:var(--bone)}
+body{
+  font-family:'Open Sans',system-ui,-apple-system,sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  line-height:1.3;
+}
+img{display:block;user-select:none;-webkit-user-drag:none;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+.mono{
+  font-family:'Open Sans',system-ui,sans-serif;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mute);font-weight:400;
+}
+.display{font-family:'Titillium Web',system-ui,sans-serif;font-weight:300;letter-spacing:-.025em;line-height:.98}
+
+/* nav (shared with index.html / business.html) */
+.nav{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);z-index:50;
+  width:min(900px,92vw);height:64px;padding:0 10px 0 26px;
+  display:flex;align-items:center;gap:22px;
+  border:1px solid rgba(243,242,238,.12);border-radius:40px;
+  background:rgba(7,7,7,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-family:'Open Sans',sans-serif;font-size:14px;
+}
+.nav .logo{display:flex;align-items:center;gap:14px;padding-right:18px;border-right:1px solid rgba(243,242,238,.14)}
+.nav .logo img{width:30px;height:30px;display:block;object-fit:contain;flex:none}
+.nav .logo b{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:22px;letter-spacing:-.01em}
+.nav .links{display:flex;gap:26px;margin-left:auto}
+.nav .links a{font-weight:600}
+.nav .links a.dim{font-weight:400;opacity:.8}
+.nav .sep{width:1px;height:26px;background:rgba(243,242,238,.14)}
+.nav .pill{padding:11px 18px;border-radius:30px;border:1px solid rgba(243,242,238,.25);font-weight:400;transition:background .25s,border-color .25s}
+.nav .pill.p{background:linear-gradient(90deg, #109126 0%, #11c04a 100%);border-color:transparent;font-weight:600}
+.nav .pill:hover{background:rgba(243,242,238,.1)}
+.nav .pill.p:hover{background:linear-gradient(90deg, #12a62c 0%, #14d654 100%);border-color:transparent;filter:brightness(1.1)}
+@media (max-width:760px){.nav{height:54px;padding:0 6px 0 16px;gap:12px}.nav .links,.nav .sep,.nav .pill:not(.p){display:none}.nav .logo{border:0;padding-right:0}.nav .pill.p{margin-left:auto;padding:9px 14px;font-size:13px}}
+
+/* POST HERO */
+#phero{position:relative;padding:15.6vw 0 3vw;background:var(--ink);text-align:center;overflow:hidden}
+#phero::after{
+  position:absolute;left:50%;bottom:-6vw;transform:translateX(-50%);
+  width:85vw;height:45vw;background:radial-gradient(ellipse 65% 55% at 50% 100%, rgba(31,178,90,0.45) 0%, rgba(7,7,7,0) 75%);
+  pointer-events:none;z-index:0;
+}
+#phero .orb{position:absolute;top:0;right:0;width:60vw;max-width:1100px;z-index:0;pointer-events:none;opacity:1;mix-blend-mode:screen;transform:scaleX(-1)}
+#phero .wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:0 5vw}
+#phero .back{display:inline-flex;align-items:center;gap:.4vw;font-family:'Titillium Web',sans-serif;font-weight:600;font-size:.83vw;color:var(--green);margin-bottom:1.6vw}
+#phero .back:hover{text-decoration:underline}
+#phero .meta{display:flex;align-items:center;justify-content:center;gap:.6vw;margin-bottom:1vw}
+#phero .tag{font-family:'Open Sans',sans-serif;font-weight:600;font-size:.7vw;letter-spacing:.04em;text-transform:uppercase;color:#3ad478}
+#phero .date{font-family:'Open Sans',sans-serif;font-weight:400;font-size:.8vw;color:var(--mute)}
+#phero h1{font-size:2.6vw;font-weight:400;letter-spacing:-.08vw;line-height:1.05;color:#FFF}
+
+/* ARTICLE BODY */
+#article{position:relative;background:var(--ink);padding:2vw 0 6vw}
+#article .wrap{max-width:820px;margin:0 auto;padding:0 5vw}
+#article .cover{width:100%;border-radius:16px;margin-bottom:2.4vw;aspect-ratio:16/9;object-fit:cover;background:#151515}
+#article .prose{font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.7;color:rgba(255,255,255,.78)}
+#article .prose p{margin-bottom:1.2vw}
+#article .prose strong,#article .prose b{font-weight:600;color:#FFF}
+#article .prose em,#article .prose i{font-style:italic}
+#article .prose a{color:var(--green);text-decoration:underline;text-underline-offset:2px}
+#article .prose a:hover{color:#3ad478}
+#article .prose ul,#article .prose ol{margin:0 0 1.2vw 1.4vw}
+#article .prose h2{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.4vw;color:#FFF;margin:2.4vw 0 1vw}
+#article .prose h3{font-family:'Titillium Web',sans-serif;font-weight:600;font-size:1.1vw;color:#FFF;margin:1.8vw 0 .6vw}
+#article .prose img{border-radius:12px;margin:1.4vw 0}
+#article .prose figure{position:relative;height:0;margin:1.6vw 0;border-radius:12px;overflow:hidden;background:#000}
+#article .prose figure div,#article .prose figure iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+#notfound{display:none;text-align:center;padding:6vw 5vw;font-family:'Open Sans',sans-serif;color:var(--mute)}
+#notfound a{color:var(--green);text-decoration:underline}
+
+/* WELCOME (shared pattern) */
+#welcome{position:relative;height:20.94vw;min-height:280px;background:var(--ink);text-align:center;padding:0}
+#welcome h2{position:absolute;left:0;top:4.16vw;width:100%;text-align:center;font-size:3.33vw;font-weight:400;letter-spacing:-.1333vw;line-height:0.93;color:#FFF}
+#welcome p{position:absolute;left:0;top:8.33vw;width:100%;text-align:center;font-family:'Open Sans',sans-serif;font-size:.9375vw;font-weight:600;line-height:1.38;color:rgba(255,255,255,0.7)}
+#welcome .form{
+  position:absolute;left:36.3vw;top:13.02vw;width:27.4vw;height:3.75vw;
+  display:flex;align-items:center;gap:.42vw;padding:.4vw .4vw .4vw 1.25vw;
+  background:#2F2F2F;border-radius:100px;
+}
+#welcome .form input{
+  flex:1;min-width:0;padding:0;border:0;background:transparent;
+  color:#FFF;font-family:'Titillium Web',sans-serif;font-size:1.04vw;font-weight:400;
+}
+#welcome .form input::placeholder{color:#FFFFFF;opacity:1}
+#welcome .form input:focus{outline:none}
+#welcome .form .btn{
+  font-family:'Titillium Web',sans-serif;font-size:.9375vw;font-weight:600;white-space:nowrap;
+  height:100%;padding:0 2.16vw;border-radius:56px;border:0;color:#FFF;cursor:pointer;
+  background:linear-gradient(132deg,#4B27FF 1.9%,#0091FF 100.6%);
+  transition:filter .25s;
+}
+#welcome .form .btn:hover,#welcome .form .btn:focus-visible{filter:brightness(1.12);outline:none}
+
+/* FOOTER (shared pattern) */
+#pfoot{position:relative;height:20.83vw;min-height:280px;background:var(--ink);overflow:hidden}
+#pfoot .wave-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+#pfoot .id{position:absolute;left:8.87%;top:19.5%;display:flex;align-items:center;gap:.6vw;z-index:1}
+#pfoot .id .logo{width:2.19vw;height:auto;display:block}
+#pfoot .id b{font-family:'Roboto',sans-serif;font-weight:700;font-size:1.25vw;color:var(--bone)}
+#pfoot .tagline{position:absolute;left:8.85%;top:34%;font-family:'Roboto',sans-serif;font-size:1.04vw;font-weight:400;color:#B4B4B4;z-index:1}
+#pfoot .copyright{position:absolute;left:8.85%;top:50%;width:14.69%;font-family:'Roboto',sans-serif;font-size:.9375vw;font-weight:400;line-height:1.35;color:#666;z-index:1}
+#pfoot .col{position:absolute;top:23%;z-index:1;display:flex;flex-direction:column}
+#pfoot .col.links{left:49.22%}
+#pfoot .col.socials{left:70%}
+#pfoot .col b{font-family:'Roboto',sans-serif;font-weight:700;font-size:.9375vw;color:#E3E3E3;margin-bottom:1.3vw}
+#pfoot .col a{font-family:'Roboto',sans-serif;font-weight:400;font-size:.9375vw;color:#B4B4B4;margin-bottom:.7vw;transition:color .25s}
+#pfoot .col a:hover{color:#FFF}
+
+@media (max-width:900px){
+  #phero{padding:20vh 5vw 6vh}
+  #phero .wrap{padding:0 6vw}
+  #phero .back{font-size:14px}
+  #phero .tag{font-size:11px}
+  #phero .date{font-size:12px}
+  #phero h1{font-size:clamp(1.6rem,7vw,2.2rem)}
+
+  #article .wrap{padding:0 6vw}
+  #article .prose{font-size:15px}
+  #article .prose h2{font-size:22px}
+  #article .prose h3{font-size:17px}
+
+  #welcome{height:auto;padding:8vh 5vw}
+  #welcome h2,#welcome p,#welcome .form{position:static;width:auto;left:auto;top:auto;margin:0 auto 1.2em}
+  #welcome h2{font-size:clamp(1.8rem,7vw,2.6rem)}
+  #welcome p{font-size:15px}
+  #welcome .form{height:auto;flex-direction:column;max-width:320px}
+  #welcome .form input{padding:15px 20px;font-size:15px}
+  #welcome .form .btn{padding:15px 22px;font-size:14px}
+
+  #pfoot{height:auto;padding:8vh 5vw}
+  #pfoot .id,#pfoot .tagline,#pfoot .copyright,#pfoot .col{position:static;left:auto;top:auto}
+  #pfoot .id .logo{width:24px}
+  #pfoot .id b{font-size:18px}
+  #pfoot .tagline{font-size:15px;margin-top:1em}
+  #pfoot .copyright{font-size:14px;width:auto;margin-top:1em}
+  #pfoot .col{margin-top:2em}
+  #pfoot .col b{font-size:15px;margin-bottom:1em}
+  #pfoot .col a{font-size:15px;margin-bottom:.8em}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" aria-label="dWallet">
+  <a class="logo" href="../index.html"><img src="../assets/img/logo.png" alt="" width="30" height="30"><b>dWallet.</b></a>
+  <nav class="links"><a class="dim" href="../index.html#dsp">Personal</a><a class="dim" href="../business.html">Business</a></nav>
+  <span class="sep"></span>
+  <a class="pill" href="https://personal.drumwave.com/sign-in">Log in</a>
+  <a class="pill p" href="https://personal.drumwave.com/">Open an Account</a>
+</header>
+
+<!-- POST HERO -->
+<section id="phero" aria-label="Article">
+  <img class="orb" src="../assets/img/personal/dsp-glow-orb.png" alt="">
+  <div class="wrap">
+    <a class="back" href="../resources.html">&lt;&nbsp; Back to Resources</a>
+    <div class="meta">
+      <span class="tag" id="p-tag"></span>
+      <span class="date" id="p-date"></span>
+    </div>
+    <h1 class="display" id="p-title"></h1>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<section id="article" aria-label="Article body">
+  <div class="wrap">
+    <img class="cover" id="p-cover" src="" alt="" style="display:none">
+    <div class="prose" id="p-body"></div>
+  </div>
+</section>
+
+<div id="notfound">
+  <p>We couldn&rsquo;t find that resource. <a href="../resources.html">Back to all resources &gt;</a></p>
+</div>
+
+<!-- WELCOME TO THE ONE ECONOMY -->
+<section id="welcome" aria-label="Welcome to the One Economy">
+  <h2 class="display">Welcome to the One Economy</h2>
+  <p>Where money and the value of data meet, giving everyone the opportunity to benefit.</p>
+  <form class="form" action="https://personal.drumwave.com/" method="get">
+    <input type="email" placeholder="Enter email" aria-label="Email">
+    <button class="btn" type="submit">Get started</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer id="pfoot">
+  <img class="wave-bg" src="../assets/img/business/footer-waves.png" alt="">
+  <div class="id">
+    <img class="logo" src="../assets/img/personal/drumwave-logo.png" alt="">
+    <b>DrumWave</b>
+  </div>
+  <p class="tagline">Your Life. Your Story. Your Data.</p>
+  <p class="copyright">Copyright &copy; 2026 DrumWave Inc. All rights reserved.</p>
+  <div class="col links">
+    <b>Links</b>
+    <a href="#">DrumWave.com</a>
+    <a href="../privacy-policy.html">Privacy Policy</a>
+    <a href="../resources.html">Resources</a>
+    <a href="../contact.html">Contact</a>
+  </div>
+  <div class="col socials">
+    <b>Socials</b>
+    <a href="https://www.youtube.com/@Drumwave" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.linkedin.com/company/drumwave" target="_blank" rel="noopener">Linkedin</a>
+    <a href="https://x.com/DrumWaveInc" target="_blank" rel="noopener">X</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $ = (s, r=document) => r.querySelector(s);
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+
+  // Allowlist sanitizer for CMS-authored article bodies. The HTML comes from
+  // a Webflow CSV export (assets/data/resources.json) rather than user input,
+  // but it's still third-party content pasted by editors, so it's sanitized
+  // before going into innerHTML: only known-safe tags/attributes survive,
+  // and any javascript:/data: URLs or event handlers are stripped.
+  const ALLOWED_TAGS = new Set([
+    'P','A','STRONG','B','EM','I','U','H2','H3','H4','UL','OL','LI',
+    'BR','IMG','FIGURE','FIGCAPTION','BLOCKQUOTE','SPAN','DIV'
+  ]);
+  const ALLOWED_ATTRS = {
+    A: ['href'],
+    IMG: ['src', 'alt'],
+  };
+  const SAFE_URL = /^(https?:|mailto:|\/|\.\/|\.\.\/|#)/i;
+
+  function sanitize(html){
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const walk = (node) => {
+      Array.from(node.childNodes).forEach(child => {
+        if (child.nodeType === Node.ELEMENT_NODE) {
+          if (!ALLOWED_TAGS.has(child.tagName)) {
+            // Unwrap disallowed elements (e.g. <script>, <iframe>) but keep their text.
+            const text = document.createTextNode(child.textContent || '');
+            node.replaceChild(text, child);
+            return;
+          }
+          Array.from(child.attributes).forEach(attr => {
+            const allowed = ALLOWED_ATTRS[child.tagName] || [];
+            if (!allowed.includes(attr.name.toLowerCase())) {
+              child.removeAttribute(attr.name);
+              return;
+            }
+            if ((attr.name === 'href' || attr.name === 'src') && !SAFE_URL.test(attr.value.trim())) {
+              child.removeAttribute(attr.name);
+            }
+          });
+          if (child.tagName === 'A') {
+            child.setAttribute('rel', 'noopener noreferrer');
+            child.setAttribute('target', '_blank');
+          }
+          walk(child);
+        } else if (child.nodeType !== Node.TEXT_NODE) {
+          node.removeChild(child);
+        }
+      });
+    };
+    walk(doc.body);
+    return doc.body.innerHTML;
+  }
+
+  function show404(){
+    document.title = 'DrumWave: Resource not found';
+    $('#phero').style.display = 'none';
+    $('#article').style.display = 'none';
+    $('#notfound').style.display = 'block';
+  }
+
+  if (!slug) { show404(); return; }
+
+  fetch('../assets/data/resources.json')
+    .then(r => r.json())
+    .then(items => {
+      const item = items.find(i => i.slug === slug);
+      if (!item) { show404(); return; }
+
+      document.title = `DrumWave: ${item.title}`;
+      $('#p-tag').textContent = item.category;
+      $('#p-date').textContent = item.date_label;
+      $('#p-title').textContent = item.title;
+      $('#p-body').innerHTML = sanitize(item.body_html || '');
+
+      if (item.image && SAFE_URL.test(item.image.trim())) {
+        const cover = $('#p-cover');
+        cover.src = item.image;
+        cover.alt = item.title;
+        cover.style.display = 'block';
+      }
+    })
+    .catch(show404);
+})();
+</script>
+</body>
+</html>
