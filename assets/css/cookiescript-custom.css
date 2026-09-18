@@ -243,10 +243,10 @@
   max-width: 100% !important;
   display: block !important;
   border: none !important;
-  background: linear-gradient(138.73deg, #FFE543 0%, #FED813 100%) !important;
-  color: #070707 !important;
+  background: linear-gradient(138.73deg, #9B45F8 0%, #8331E7 100%) !important;
+  color: #fff !important;
 }
-#cookiescript_save:hover { filter: brightness(1.08) !important; }
+#cookiescript_save:hover { filter: brightness(1.12) !important; }
 
 /* ---- footer / copyright ---------------------------------------------------- */
 
